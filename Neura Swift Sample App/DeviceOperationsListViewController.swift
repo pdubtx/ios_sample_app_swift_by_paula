@@ -28,7 +28,7 @@ class DeviceOperationsListViewController: UIViewController, UITableViewDelegate 
   }
   
   //MARK: IBAction Functions
-  @IBAction func backButtonTouched(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func backButtonTouched(_ sender: AnyObject) {
+    self.dismiss(animated: true, completion: nil)
   }
 }

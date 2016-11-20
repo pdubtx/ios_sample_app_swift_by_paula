@@ -30,13 +30,13 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
   }
   
   func  reloadAllData() {
-    neuraSDK.getSubscriptions({ (responseData, error) in
+    neuraSDK?.getSubscriptions({ (responseData, error) in
       if error == nil {
         let data = responseData as? [String:NSObject]
         let subscriptionsArray = data!["items"] as? [NSObject]
-        self.subscriptionsArray = subscriptionsArray!
-        self.neuraSDK.getAppPermissionsWithHandler({ (permissionsData, error) in
-          self.permissionsArray = permissionsData!
+        self.subscriptionsArray = subscriptionsArray! as NSArray
+        self.neuraSDK?.getAppPermissions(handler: { (permissionsData, error) in
+          self.permissionsArray = permissionsData! as NSArray
           self.subscriptionsTableView.reloadData()
         })
       }
@@ -48,96 +48,96 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     return 1
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return permissionsArray.count
   }
   
   //Create a cell for each table view row
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell:SubscriptionsTableViewCell = self.subscriptionsTableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! SubscriptionsTableViewCell
-    cell.subscribeSwitch.addTarget(self, action: #selector(SubscriptionsListViewController.subscribeToEventSwitch(_:)), forControlEvents: UIControlEvents.ValueChanged)
-    let permissionDictionary = permissionsArray[(indexPath as NSIndexPath).row]
-    let permissionString = permissionDictionary["displayName"] as! String
-    let permissionEventName = permissionDictionary["name"] as! String
-    cell.subscriptionName.text = permissionString
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell:SubscriptionsTableViewCell = self.subscriptionsTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! SubscriptionsTableViewCell
+    cell.subscribeSwitch.addTarget(self, action: #selector(SubscriptionsListViewController.subscribeToEventSwitch(_:)), for: UIControlEvents.valueChanged)
+    let permissionDictionary = permissionsArray[(indexPath as IndexPath).row] as! [String: Any]
+    let permissionString = permissionDictionary["displayName"]
+    let permissionEventName = permissionDictionary["name"]
+    cell.subscriptionName.text = permissionString as! String?
     if self.subscriptionsArray.count != 0 {
       for subscription in self.subscriptionsArray {
         guard let dictionary = subscription as? NSDictionary else { return cell }
-        if dictionary.objectForKey("eventName")?.isEqualToString(permissionEventName) != false {
-          cell.subscribeSwitch.on = true
+        if (dictionary.object(forKey: "eventName") as AnyObject).isEqual(to: (permissionEventName as? String)!) != false {
+          cell.subscribeSwitch.isOn = true
           break
         }
-        else { cell.subscribeSwitch.on = false }
+        else { cell.subscribeSwitch.isOn = false }
       }
-    }else { cell.subscribeSwitch.on = false }
+    }else { cell.subscribeSwitch.isOn = false }
     return cell
   }
   
-  func subscribeToEventSwitch(subscribeSwitch: UISwitch) {
+  func subscribeToEventSwitch(_ subscribeSwitch: UISwitch) {
     let cell = subscribeSwitch.superview?.superview as! SubscriptionsTableViewCell
-    let indexPath = self.subscriptionsTableView.indexPathForCell(cell)
-    let permissionDictionary = self.permissionsArray.objectAtIndex(indexPath!.row)
-    let eventName = permissionDictionary["name"] as! String
+    let indexPath = self.subscriptionsTableView.indexPath(for: cell)
+    let permissionDictionary = self.permissionsArray.object(at: indexPath!.row) as! [String: Any]
+    let eventName = permissionDictionary["name"] as! String?
     
-    if subscribeSwitch.on {
+    if subscribeSwitch.isOn {
       //this function checks whether an event subscription is missing data in order to successfully subscribe
-      if neuraSDK.isMissingDataForEvent(eventName) == true {
-        let alertController = UIAlertController(title: "The place has not been set yet. Create it now?", message: nil, preferredStyle: .Alert)
-        let noAction = UIAlertAction(title: "I will wait", style: .Default, handler: {_ in self.subscribeToEvent(eventName)})
+      if neuraSDK?.isMissingData(forEvent: eventName) == true {
+        let alertController = UIAlertController(title: "The place has not been set yet. Create it now?", message: nil, preferredStyle: .alert)
+        let noAction = UIAlertAction(title: "I will wait", style: .default, handler: {_ in self.subscribeToEvent(eventName!)})
         alertController.addAction(noAction)
-        let okAction = UIAlertAction(title: "Yes", style: .Default, handler: {_ in self.addMissingDataToEvent(eventName, subscribeSwitch: subscribeSwitch)})
+        let okAction = UIAlertAction(title: "Yes", style: .default, handler: {_ in self.addMissingDataToEvent(eventName!, subscribeSwitch: subscribeSwitch)})
         alertController.addAction(okAction)
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
       } else {
-        subscribeToEvent(eventName)
+        subscribeToEvent(eventName!)
       }
     } else {
-      self.removeSubscriptionWithIdentifier(eventName)
+      self.removeSubscriptionWithIdentifier(eventName!)
     }
   }
   
-  func addMissingDataToEvent(eventName: String, subscribeSwitch: UISwitch){
+  func addMissingDataToEvent(_ eventName: String, subscribeSwitch: UISwitch){
     //If the user chooses to add the missing data for the event, call this function with the event name
-    neuraSDK.getMissingDataForEvent(eventName) { (responseData, error) in
+    neuraSDK?.getMissingData(forEvent: eventName) { (responseData, error) in
       if error == nil {
-        let responseStatus = responseData["status"] as! String
+        let responseStatus = responseData?["status"] as! String
         if responseStatus == "success" {
           self.subscribeToEvent(eventName)
         }
         else{
-          subscribeSwitch.on = false
+          subscribeSwitch.isOn = false
         }
       }
     }
   }
   
-  func subscribeToEvent(eventName: String) {
-    neuraSDK.subscribeToEvent(eventName, identifier: (eventName), webHookID: nil, state: nil) { (responseData, error) in
+  func subscribeToEvent(_ eventName: String) {
+    neuraSDK?.subscribe(toEvent: eventName, identifier: (eventName), webHookID: nil, state: nil) { (responseData, error) in
       if error != nil {
-        let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
       }
       self.reloadAllData()
     }
   }
   
-  func removeSubscriptionWithIdentifier(identifier: String){
-    neuraSDK.removeSubscriptionWithIdentifier(identifier) { responseData, error in
+  func removeSubscriptionWithIdentifier(_ identifier: String){
+    neuraSDK?.removeSubscription(withIdentifier: identifier) { responseData, error in
       if error != nil {
-        let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
       }
       self.reloadAllData()
     }
   }
   
   //MARK: IBActions
-  @IBAction func backButtonPressed(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func backButtonPressed(_ sender: AnyObject) {
+    self.dismiss(animated: true, completion: nil)
   }
 }

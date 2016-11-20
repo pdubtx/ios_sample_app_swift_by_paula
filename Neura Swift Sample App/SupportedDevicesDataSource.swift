@@ -16,10 +16,10 @@ class SupportedDevicesDataSource: NSObject, UITableViewDataSource, DataSourcePro
   var list = [String]()
   var status = [Bool]()
   
-  func reloadData(callback: FetchCallback) {
+  internal func reloadData(_ callback: @escaping () -> ()) {
     self.list = []
     //Returns a list of all devices that Neura supports
-    neuraSDK.getSupportedDevicesListWithHandler({ (responseData, error) -> Void in
+    neuraSDK?.getSupportedDevicesList(handler: { (responseData, error) -> Void in
       guard let data = responseData as? [String: NSObject] else { return }
       guard let devices = data["devices"] as? [[String: NSObject]] else { return }
       for device in devices {
@@ -31,17 +31,17 @@ class SupportedDevicesDataSource: NSObject, UITableViewDataSource, DataSourcePro
   }
   
   //MARK: Table View Functions
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return list.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! DeviceOperationsTableViewCell
-    cell.name.text = list[(indexPath as NSIndexPath).row]
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DeviceOperationsTableViewCell
+    cell.name.text = list[(indexPath as IndexPath).row]
     return cell
   }
 }

@@ -12,7 +12,7 @@ import NeuraSDK
 
 //MARK: Picker Delegate Protocol
 protocol PickerDelegate: class {
-  func selectedCapability(name: String)
+  func selectedCapability(_ name: String)
 }
 
 class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
@@ -30,14 +30,14 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     self.getData()
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.hide()
   }
   
   func getData() {
     //Gets all of Neura's supported capabilities.
-    neuraSDK.getSupportedCapabilitiesListWithHandler({responseData, error in
+    neuraSDK?.getSupportedCapabilitiesList(handler: {responseData, error in
       var capabilitiesList = [String]()
       guard let data = responseData as? [String: NSObject] else { return }
       guard let items = data["items"] as? [[String: NSObject]] else { return }
@@ -51,15 +51,15 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
   }
   
   //MARK: Picker Functions
-  func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
   }
   
-  func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     return pickerData.count;
   }
   
-  func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     return pickerData[row]
   }
   
@@ -72,13 +72,13 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
   }
   
   //MARK: IBAction Functions
-  @IBAction func checkTouched(sender: AnyObject) {
-    let name = self.pickerData[self.capabilityPicker.selectedRowInComponent(0)]
+  @IBAction func checkTouched(_ sender: AnyObject) {
+    let name = self.pickerData[self.capabilityPicker.selectedRow(inComponent: 0)]
     self.delegate?.selectedCapability(name)
     self.hide()
   }
   
-  @IBAction func cancelTouched(sender: AnyObject) {
+  @IBAction func cancelTouched(_ sender: AnyObject) {
     self.hide()
   }
 }

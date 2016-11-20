@@ -30,9 +30,9 @@ class PermissionsListViewController: UIViewController, UITableViewDataSource, UI
      Returns a list of all the permissions that an app may request. These may be edited in the
      console at dev.theneura.com
      */
-    neuraSDK.getAppPermissionsWithHandler { (responseArray, error) in
+    neuraSDK?.getAppPermissions { (responseArray, error) in
       if error == nil{
-        self.permissionsArray = responseArray!
+        self.permissionsArray = responseArray! as NSArray
         self.permissionsTable.reloadData()
       }
     }
@@ -43,21 +43,21 @@ class PermissionsListViewController: UIViewController, UITableViewDataSource, UI
     return 1
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return permissionsArray.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = permissionsTable.dequeueReusableCellWithIdentifier("activityCell", forIndexPath: indexPath)
-    let permissionDictionary = permissionsArray[(indexPath as NSIndexPath).row]
-    let textString = permissionDictionary["displayName"] as! String
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = permissionsTable.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath)
+    let permissionDictionary = permissionsArray[(indexPath as IndexPath).row] as? [String: Any]
+    let textString = (permissionDictionary?["displayName"]!)! as! String
     
     cell.textLabel?.text = textString
     return cell
   }
   
   //MARK: IBAction Functions
-  @IBAction func backButtonPressed(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func backButtonPressed(_ sender: AnyObject) {
+    self.dismiss(animated: true, completion: nil)
   }
 }

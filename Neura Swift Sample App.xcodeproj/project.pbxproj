@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E1171D501DE1E89200EBE71E /* NeuraSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */; };
+		E1171D511DE1E89500EBE71E /* NeuraSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */; };
+		E1171D521DE1E89500EBE71E /* NeuraSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E15281491DC0E11F001B7563 /* DataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15281481DC0E11F001B7563 /* DataSourceProtocol.swift */; };
 		E152814C1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152814A1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift */; };
 		E152814D1DC0E132001B7563 /* SupportedDevicesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152814B1DC0E132001B7563 /* SupportedDevicesDataSource.swift */; };
@@ -23,18 +26,16 @@
 		E19DB1E91DC0E0960045AA6E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19DB1C81DC0DFC20045AA6E /* RoundedButton.swift */; };
 		E19DB1EA1DC0E0A90045AA6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E19DB1DC1DC0E03C0045AA6E /* Assets.xcassets */; };
 		E19DB1ED1DC0E0AF0045AA6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E19DB1C61DC0DFB50045AA6E /* Main.storyboard */; };
-		E1B92C4C1DC773C300ABBCB5 /* NeuraSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B92C4A1DC773BB00ABBCB5 /* NeuraSDK.framework */; };
-		E1B92C4D1DC773C300ABBCB5 /* NeuraSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1B92C4A1DC773BB00ABBCB5 /* NeuraSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E1E28A891DC61EC7009F137C /* Embed Frameworks */ = {
+		E1171D531DE1E89500EBE71E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E1B92C4D1DC773C300ABBCB5 /* NeuraSDK.framework in Embed Frameworks */,
+				E1171D521DE1E89500EBE71E /* NeuraSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NeuraSDK.framework; sourceTree = SOURCE_ROOT; };
 		E125F7F81D328BF00078E7B4 /* Neura Swift Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neura Swift Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15281481DC0E11F001B7563 /* DataSourceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataSourceProtocol.swift; path = "Neura Swift Sample App/DataSourceProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		E152814A1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SupportedCapabilitiesDataSource.swift; path = "Neura Swift Sample App/SupportedCapabilitiesDataSource.swift"; sourceTree = SOURCE_ROOT; };
@@ -60,7 +62,6 @@
 		E19DB1D81DC0E0280045AA6E /* PermissionsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PermissionsListViewController.swift; path = "Neura Swift Sample App/PermissionsListViewController.swift"; sourceTree = SOURCE_ROOT; };
 		E19DB1DC1DC0E03C0045AA6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Neura Swift Sample App/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		E19DB1DE1DC0E0440045AA6E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Neura Swift Sample App/Info.plist"; sourceTree = SOURCE_ROOT; };
-		E1B92C4A1DC773BB00ABBCB5 /* NeuraSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NeuraSDK.framework; sourceTree = SOURCE_ROOT; };
 		E1EDE09C1DBFACE6001B6329 /* Neura Swift Sample App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Neura Swift Sample App.entitlements"; path = "Neura Swift Sample App/Neura Swift Sample App.entitlements"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -69,7 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1B92C4C1DC773C300ABBCB5 /* NeuraSDK.framework in Frameworks */,
+				E1171D501DE1E89200EBE71E /* NeuraSDK.framework in Frameworks */,
+				E1171D511DE1E89500EBE71E /* NeuraSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +81,7 @@
 		E10131041DAFDAE7001AA53A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E1B92C4A1DC773BB00ABBCB5 /* NeuraSDK.framework */,
+				E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -177,7 +179,7 @@
 				E125F7F41D328BF00078E7B4 /* Sources */,
 				E125F7F51D328BF00078E7B4 /* Frameworks */,
 				E125F7F61D328BF00078E7B4 /* Resources */,
-				E1E28A891DC61EC7009F137C /* Embed Frameworks */,
+				E1171D531DE1E89500EBE71E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,7 +204,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = UF894MT86P;
 						DevelopmentTeamName = "Clio Harper IV";
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -393,7 +395,7 @@
 				PROVISIONING_PROFILE = "db373886-847b-4bea-a2c1-ed1cfc896ff1";
 				PROVISIONING_PROFILE_SPECIFIER = "Neura Swift Sample App - Dev";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -423,7 +425,7 @@
 				PROVISIONING_PROFILE = "25b72cda-572e-4426-989b-b81c7bd661a0";
 				PROVISIONING_PROFILE_SPECIFIER = "Neura Swift Sample App - Prod";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

@@ -388,7 +388,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "-iquote";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.neuraSDKSampleAppSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.NeuraSwiftSampleAppNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "db373886-847b-4bea-a2c1-ed1cfc896ff1";
 				PROVISIONING_PROFILE_SPECIFIER = "Neura Swift Sample App - Dev";
@@ -418,7 +418,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "-iquote";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.neuraSDKSampleAppSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.NeuraSwiftSampleAppNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "25b72cda-572e-4426-989b-b81c7bd661a0";
 				PROVISIONING_PROFILE_SPECIFIER = "Neura Swift Sample App - Prod";

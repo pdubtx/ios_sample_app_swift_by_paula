@@ -14,7 +14,28 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
   
   //MARK: Properties
   let neuraSDK = NeuraSDK.sharedInstance()
-  var permissionsArray: NSArray = []
+    var permissionsArray = [
+        "userArrivedHome",
+        "userArrivedHomeFromWork",
+        "userLeftHome",
+        "userArrivedHomeByWalking",
+        "userArrivedHomeByRunning",
+        "userIsOnTheWayHome",
+        "userIsIdleAtHome",
+        "userStartedWorkOut",
+        "userFinishedRunning",
+        "userFinishedWorkOut",
+        "userLeftGym",
+        "userFinishedWalking",
+        "userArrivedToGym",
+        "userIsIdleFor2Hours",
+        "userStartedWalking",
+        "userIsIdleFor1Hour",
+        "userStartedRunningFromPlace",
+        "userStartedTransitByWalking",
+        "userStartedRunning",
+        "userFinishedTransitByWalking"
+    ]
   var subscriptionsArray: NSArray = []
   let cellReuseIdentifier = "SuscriptionsListViewCell"
   
@@ -35,10 +56,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
         let data = responseData as? [String:NSObject]
         let subscriptionsArray = data!["items"] as? [NSObject]
         self.subscriptionsArray = subscriptionsArray!
-        self.neuraSDK.getAppPermissionsWithHandler({ (permissionsData, error) in
-          self.permissionsArray = permissionsData!
-          self.subscriptionsTableView.reloadData()
-        })
+        self.subscriptionsTableView.reloadData()
       }
     })
   }
@@ -56,14 +74,12 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell:SubscriptionsTableViewCell = self.subscriptionsTableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier) as! SubscriptionsTableViewCell
     cell.subscribeSwitch.addTarget(self, action: #selector(SubscriptionsListViewController.subscribeToEventSwitch(_:)), forControlEvents: UIControlEvents.ValueChanged)
-    let permissionDictionary = permissionsArray[(indexPath as NSIndexPath).row]
-    let permissionString = permissionDictionary["displayName"] as! String
-    let permissionEventName = permissionDictionary["name"] as! String
+    let permissionString = permissionsArray[(indexPath as NSIndexPath).row]
     cell.subscriptionName.text = permissionString
     if self.subscriptionsArray.count != 0 {
       for subscription in self.subscriptionsArray {
         guard let dictionary = subscription as? NSDictionary else { return cell }
-        if dictionary.objectForKey("eventName")?.isEqualToString(permissionEventName) != false {
+        if dictionary.objectForKey("eventName")?.isEqualToString(permissionString) != false {
           cell.subscribeSwitch.on = true
           break
         }
@@ -76,8 +92,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
   func subscribeToEventSwitch(subscribeSwitch: UISwitch) {
     let cell = subscribeSwitch.superview?.superview as! SubscriptionsTableViewCell
     let indexPath = self.subscriptionsTableView.indexPathForCell(cell)
-    let permissionDictionary = self.permissionsArray.objectAtIndex(indexPath!.row)
-    let eventName = permissionDictionary["name"] as! String
+    let eventName = self.permissionsArray[indexPath!.row]
     
     if subscribeSwitch.on {
       //this function checks whether an event subscription is missing data in order to successfully subscribe
@@ -113,7 +128,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
   }
   
   func subscribeToEvent(eventName: String) {
-    neuraSDK.subscribeToEvent(eventName, identifier: (eventName), webHookID: nil, state: nil) { (responseData, error) in
+    neuraSDK.subscribeToEvent(eventName, identifier: (eventName), webHookID: nil) { (responseData, error) in
       if error != nil {
         let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)

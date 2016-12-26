@@ -15,8 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool{
-    NeuraSDK.sharedInstance().appUID = "611c657ba5e3b0a9b705d0fc7047a233f36d08da7182975a97aab54f7fd40cd0"
-    NeuraSDK.sharedInstance().appSecret = "162fc1785119471712153a0344fe6d0dbff4ede9a0e1f04ee66be89c6070bc07"
+    NeuraSDK.sharedInstance().appUID = "ee01346c01f64c5345f21830d9ca91dde0046db1442c6b8932e60a77f32d8d17"
+    NeuraSDK.sharedInstance().appSecret = "4a56d9a3c4b8dad1ebd4dd4978dc8a0bac4d6eaabab35f7bee7bfea2ae3722c3"
     
     /*
      Here we register for push notifications and attach a method to respond.

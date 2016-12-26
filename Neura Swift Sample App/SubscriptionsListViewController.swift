@@ -14,7 +14,30 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     
     //MARK: Properties
     let neuraSDK = NeuraSDK.sharedInstance()
-    var permissionsArray = [String]()
+    // Declare the permissions you'll want to request here. These can be found in the app wizard in the developer console at the bottom of the page.
+    // They should correspond to the permissions group that you've declared in the authenticate with permissions function elsewhere (in the main view controller in this case)
+    var permissionsArray = [
+        "userArrivedHome",
+        "userArrivedHomeFromWork",
+        "userLeftHome",
+        "userArrivedHomeByWalking",
+        "userArrivedHomeByRunning",
+        "userIsOnTheWayHome",
+        "userIsIdleAtHome",
+        "userStartedWorkOut",
+        "userFinishedRunning",
+        "userFinishedWorkOut",
+        "userLeftGym",
+        "userFinishedWalking",
+        "userArrivedToGym",
+        "userIsIdleFor2Hours",
+        "userStartedWalking",
+        "userIsIdleFor1Hour",
+        "userStartedRunningFromPlace",
+        "userStartedTransitByWalking",
+        "userStartedRunning",
+        "userFinishedTransitByWalking"
+    ]
     var subscriptionsArray: NSArray = []
     let cellReuseIdentifier = "SuscriptionsListViewCell"
     
@@ -35,23 +58,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
                 let data = responseData as? [String:NSObject]
                 let subscriptionsArray = data!["items"] as? [NSObject]
                 self.subscriptionsArray = subscriptionsArray! as NSArray
-                self.neuraSDK?.getAppPermissions(handler: { (permissionsData, error) in
-                    //            self.permissionsArray = permissionsData! as NSArray
-                    for permissionDictionary in permissionsData! as NSArray {
-                        let dictionaryParsed = permissionDictionary as! [String: Any]
-                        for permission in dictionaryParsed["events"] as! [Any] {
-                            let permissionParsed = permission as! [String: Any]
-                            let permissionName = permissionParsed["name"] as! String
-                            
-                            if self.permissionsArray.index(of: permissionName) == nil {
-                                self.permissionsArray.append(permissionName)
-                            }
-                        }
-                    }
-
-                    
                 self.subscriptionsTableView.reloadData()
-                })
             }
         })
     }
@@ -69,10 +76,8 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:SubscriptionsTableViewCell = self.subscriptionsTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! SubscriptionsTableViewCell
         cell.subscribeSwitch.addTarget(self, action: #selector(SubscriptionsListViewController.subscribeToEventSwitch(_:)), for: UIControlEvents.valueChanged)
+        
         let permissionString = permissionsArray[(indexPath as IndexPath).row]
-
-//        let permissionString = permissionDictionary["displayName"]
-//        let permissionEventName = permissionDictionary["name"]
         cell.subscriptionName.text = permissionString
         if self.subscriptionsArray.count != 0 {
             for subscription in self.subscriptionsArray {
@@ -90,8 +95,8 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     func subscribeToEventSwitch(_ subscribeSwitch: UISwitch) {
         let cell = subscribeSwitch.superview?.superview as! SubscriptionsTableViewCell
         let indexPath = self.subscriptionsTableView.indexPath(for: cell)
-//        let permissionDictionary = self.permissionsArray.object(at: indexPath!.row) as! [String: Any]
-//        let eventName = permissionDictionary["name"] as! String?
+        //        let permissionDictionary = self.permissionsArray.object(at: indexPath!.row) as! [String: Any]
+        //        let eventName = permissionDictionary["name"] as! String?
         let eventName = permissionsArray[(indexPath?.row)!]
         
         if subscribeSwitch.isOn {

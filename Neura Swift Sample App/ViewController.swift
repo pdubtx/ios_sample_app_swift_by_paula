@@ -62,7 +62,10 @@ class ViewController: UIViewController {
      Specify your permissions array in an NSArray. These can be found in the the developer
      console under "Permissions."
      */
-    let permissions: Array = ["userLeftWork", "userLeftHome"]
+    let permissions: Array = [
+        "presenceAtHome",
+        "physicalActivity"
+    ]
     /*This logs the user in. In this case, we're saving a bool to userDefaults to indicate that the user is logged in.
     Your implementation may be different
  */

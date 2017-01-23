@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E1171D501DE1E89200EBE71E /* NeuraSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */; };
-		E1171D511DE1E89500EBE71E /* NeuraSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */; };
-		E1171D521DE1E89500EBE71E /* NeuraSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E15281491DC0E11F001B7563 /* DataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15281481DC0E11F001B7563 /* DataSourceProtocol.swift */; };
 		E152814C1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152814A1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift */; };
 		E152814D1DC0E132001B7563 /* SupportedDevicesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152814B1DC0E132001B7563 /* SupportedDevicesDataSource.swift */; };
 		E15281501DC0E16E001B7563 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E152814E1DC0E16E001B7563 /* LaunchScreen.storyboard */; };
+		E15E8EC91E24201200CB85EA /* NeuraSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E11726A01E241FC400A9C5C8 /* NeuraSDK.framework */; };
+		E15E8ECA1E24201200CB85EA /* NeuraSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E11726A01E241FC400A9C5C8 /* NeuraSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E19DB1E01DC0E0960045AA6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19DB1C41DC0DFAF0045AA6E /* AppDelegate.swift */; };
 		E19DB1E11DC0E0960045AA6E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19DB1CA1DC0DFD60045AA6E /* ViewController.swift */; };
 		E19DB1E21DC0E0960045AA6E /* SubscriptionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19DB1CC1DC0DFE30045AA6E /* SubscriptionsListViewController.swift */; };
@@ -35,7 +34,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E1171D521DE1E89500EBE71E /* NeuraSDK.framework in Embed Frameworks */,
+				E15E8ECA1E24201200CB85EA /* NeuraSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,7 +42,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NeuraSDK.framework; sourceTree = SOURCE_ROOT; };
+		E11726A01E241FC400A9C5C8 /* NeuraSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NeuraSDK.framework; sourceTree = SOURCE_ROOT; };
 		E125F7F81D328BF00078E7B4 /* Neura Swift Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neura Swift Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15281481DC0E11F001B7563 /* DataSourceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataSourceProtocol.swift; path = "Neura Swift Sample App/DataSourceProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		E152814A1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SupportedCapabilitiesDataSource.swift; path = "Neura Swift Sample App/SupportedCapabilitiesDataSource.swift"; sourceTree = SOURCE_ROOT; };
@@ -70,8 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1171D501DE1E89200EBE71E /* NeuraSDK.framework in Frameworks */,
-				E1171D511DE1E89500EBE71E /* NeuraSDK.framework in Frameworks */,
+				E15E8EC91E24201200CB85EA /* NeuraSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +79,7 @@
 		E10131041DAFDAE7001AA53A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E1171D4F1DE1E89200EBE71E /* NeuraSDK.framework */,
+				E11726A01E241FC400A9C5C8 /* NeuraSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

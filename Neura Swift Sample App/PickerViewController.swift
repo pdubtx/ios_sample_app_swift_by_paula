@@ -37,16 +37,16 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
   
   func getData() {
     //Gets all of Neura's supported capabilities.
-    neuraSDK?.getSupportedCapabilitiesList(handler: {responseData, error in
-      var capabilitiesList = [String]()
-      guard let data = responseData as? [String: NSObject] else { return }
-      guard let items = data["items"] as? [[String: NSObject]] else { return }
-      for item in items {
-        let name = item["name"] as! String
-        capabilitiesList.append(name)
-      }
-      self.pickerData = capabilitiesList
-      self.capabilityPicker.reloadAllComponents()
+    
+    neuraSDK?.getSupportedCapabilitiesList(callback: { (capabilitiesResult) in
+        if capabilitiesResult.error != nil {
+            return
+        }
+        for capability in capabilitiesResult.capabilities {
+            let name = capability.name
+            self.pickerData.append(name)
+        }
+        self.capabilityPicker.reloadAllComponents()  
     })
   }
   

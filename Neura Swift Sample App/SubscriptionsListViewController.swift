@@ -38,7 +38,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
         "userStartedRunning",
         "userFinishedTransitByWalking"
     ]
-    var subscriptionsArray: NSArray = []
+    var subscriptionsArray = [String]()
     let cellReuseIdentifier = "SuscriptionsListViewCell"
     
     //MARK: IBOutlets
@@ -53,13 +53,14 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func  reloadAllData() {
-        neuraSDK?.getSubscriptions({ (responseData, error) in
-            if error == nil {
-                let data = responseData as? [String:NSObject]
-                let subscriptionsArray = data!["items"] as? [NSObject]
-                self.subscriptionsArray = subscriptionsArray! as NSArray
-                self.subscriptionsTableView.reloadData()
+        neuraSDK?.getSubscriptionsList(callback: { (subscriptionsResult) in
+            if subscriptionsResult.error != nil {
+                return
             }
+            for subscription in subscriptionsResult.subscriptions {
+                self.subscriptionsArray.append(subscription.eventName)
+            }
+            self.subscriptionsTableView.reloadData()
         })
     }
     
@@ -81,8 +82,8 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
         cell.subscriptionName.text = permissionString
         if self.subscriptionsArray.count != 0 {
             for subscription in self.subscriptionsArray {
-                guard let dictionary = subscription as? NSDictionary else { return cell }
-                if (dictionary.object(forKey: "eventName") as AnyObject).isEqual(to: permissionString) != false {
+                
+                if (subscription).isEqual(permissionString) != false {
                     cell.subscribeSwitch.isOn = true
                     break
                 }
@@ -119,41 +120,38 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     
     func addMissingDataToEvent(_ eventName: String, subscribeSwitch: UISwitch){
         //If the user chooses to add the missing data for the event, call this function with the event name
-        neuraSDK?.getMissingData(forEvent: eventName) { (responseData, error) in
-            if error == nil {
-                let responseStatus = responseData?["status"] as! String
-                if responseStatus == "success" {
-                    self.subscribeToEvent(eventName)
-                }
-                else{
-                    subscribeSwitch.isOn = false
-                }
+        neuraSDK?.getMissingData(forEvent: eventName, withCallback: { (missingDataResult) in
+            if missingDataResult.error != nil {
+                subscribeSwitch.isOn = false
+                return
             }
-        }
+        })
     }
     
     func subscribeToEvent(_ eventName: String) {
-        neuraSDK?.subscribe(toEvent: eventName, identifier: (eventName), webHookID: nil) { (responseData, error) in
-            if error != nil {
+        let nSubscription = NSubscription.init(eventNamed: eventName)
+        neuraSDK?.add(nSubscription, callback: { (result) in
+            if (result.error != nil){
                 let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okAction)
                 self.present(alertController, animated: true, completion: nil)
             }
             self.reloadAllData()
-        }
+        })
     }
     
     func removeSubscriptionWithIdentifier(_ identifier: String){
-        neuraSDK?.removeSubscription(withIdentifier: identifier) { responseData, error in
-            if error != nil {
+        let nSubscription = NSubscription.init(identifier: identifier)
+        neuraSDK?.remove(nSubscription, callback: { (result) in
+            if (result.error != nil) {
                 let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okAction)
                 self.present(alertController, animated: true, completion: nil)
             }
             self.reloadAllData()
-        }
+        })
     }
     
     //MARK: IBActions

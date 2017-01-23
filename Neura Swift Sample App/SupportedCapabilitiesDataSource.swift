@@ -14,14 +14,15 @@ class SupportedCapabilitiesDataSource: NSObject, UITableViewDataSource, DataSour
   internal func reloadData(_ callback: @escaping () -> ()) {
     self.list = []
     //Returns a list of all capabilities that Neura supports
-    neuraSDK?.getSupportedCapabilitiesList(handler: {responseData, error in
-      guard let data = responseData as? [String: NSObject] else { return }
-      guard let items = data["items"] as? [[String: NSObject]] else { return }
-      for item in items {
-        let name = item["name"] as! String
-        self.list.append(name)
-      }
-      callback()
+    neuraSDK?.getSupportedCapabilitiesList(callback: { (capabilitiesResult) in
+        if capabilitiesResult.error != nil {
+            return
+        }
+        for capability in capabilitiesResult.capabilities {
+            let name = capability.name
+            self.list.append(name)
+        }
+        callback()
     })
   }
 

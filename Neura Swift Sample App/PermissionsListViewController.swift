@@ -14,7 +14,7 @@ class PermissionsListViewController: UIViewController, UITableViewDataSource, UI
   
   //MARK: Properties
   let neuraSDK = NeuraSDK.sharedInstance()
-  var permissionsArray: NSArray = []
+  var permissionsArray: [NPermission] = []
   @IBOutlet weak var permissionsTable: UITableView!
   
   //MARK: Lifecycle Functions
@@ -30,12 +30,20 @@ class PermissionsListViewController: UIViewController, UITableViewDataSource, UI
      Returns a list of all the permissions that an app may request. These may be edited in the
      console at dev.theneura.com
      */
-    neuraSDK?.getAppPermissions { (responseArray, error) in
-      if error == nil{
-        self.permissionsArray = responseArray! as NSArray
+    neuraSDK?.getAppPermissionsList(callback: { (permissionsResult) in
+        if permissionsResult.error != nil {
+            return
+        }
+        
+    })
+    neuraSDK?.getAppPermissionsList(callback: { (result) in
+        if (result.error != nil) {
+            print ("Error with permissions list: \(result.error?.description())")
+            return
+        }
+        self.permissionsArray = result.permissions
         self.permissionsTable.reloadData()
-      }
-    }
+    })
   }
   
   //MARK: Table View Functions
@@ -49,10 +57,8 @@ class PermissionsListViewController: UIViewController, UITableViewDataSource, UI
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = permissionsTable.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath)
-    let permissionDictionary = permissionsArray[(indexPath as IndexPath).row] as? [String: Any]
-    let textString = (permissionDictionary?["displayName"]!)! as! String
-    
-    cell.textLabel?.text = textString
+    let permissionObject = permissionsArray[(indexPath as IndexPath).row]
+    cell.textLabel?.text = permissionObject.name
     return cell
   }
   

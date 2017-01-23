@@ -52,7 +52,9 @@ class ViewController: UIViewController {
   
   //MARK: Login/Logout Functions
   func logoutFromNeura(){
-    neuraSDK?.logout()
+    neuraSDK?.logout(callback: { (result) in
+        print(result)
+    })
     userDefaults.set(false, forKey: "kIsUserLogin")
     self.neuraDisconnectSymbolAnimate()
   }
@@ -62,24 +64,30 @@ class ViewController: UIViewController {
      Specify your permissions array in an NSArray. These can be found in the the developer
      console under "Permissions."
      */
-    let permissions: Array = [
+    let permissionsList: Array = [
         "presenceAtHome",
         "physicalActivity"
     ]
-    /*This logs the user in. In this case, we're saving a bool to userDefaults to indicate that the user is logged in.
-    Your implementation may be different
- */
-    
-    neuraSDK?.authenticate(withPermissions: permissions as [String], userInfo: nil, on: self, withHandler: { (token, error) in
-      if token != nil {
+    /*
+     You'll then need to cast your permissions strings to a [NPermission]
+     using the class method below.
+     */
+    let nPermissions = NPermission.list(from: permissionsList)
+    /*
+     This logs the user in. In this case, we're saving a bool to userDefaults to indicate that the user is logged in.
+     Your implementation may be different
+     */
+    let authenticationRequest = NeuraAuthenticationRequest(permissions: nPermissions, controller: self)
+    neuraSDK?.authenticate(with: authenticationRequest, callback: { (result) in
+        if (result.error != nil) {
+            print("login error = \(result.error)")
+            return
+        }
         self.userDefaults.set(true, forKey: "kIsUserLogin")
         self.neuraStatusLabel.text = "Connected"
         self.neuraStatusLabel.textColor = UIColor.green
         self.loginButton.setTitle("Disconnect", for: .normal)
         self.neuraConnectSymbolAnimate()
-      }else{
-        print("login error = \(error)")
-      }
     })
   }
   

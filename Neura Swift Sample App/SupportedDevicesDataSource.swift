@@ -19,14 +19,14 @@ class SupportedDevicesDataSource: NSObject, UITableViewDataSource, DataSourcePro
   internal func reloadData(_ callback: @escaping () -> ()) {
     self.list = []
     //Returns a list of all devices that Neura supports
-    neuraSDK?.getSupportedDevicesList(handler: { (responseData, error) -> Void in
-      guard let data = responseData as? [String: NSObject] else { return }
-      guard let devices = data["devices"] as? [[String: NSObject]] else { return }
-      for device in devices {
-        let name = device["name"] as! String
-        self.list.append(name)
-      }
-      callback()
+    neuraSDK?.getSupportedDevicesList(callback: { (devicesResult) in
+        if devicesResult.error != nil {
+            return
+        }
+        for device in devicesResult.devices {
+            self.list.append(device.name)
+        }
+        callback()
     })
   }
   

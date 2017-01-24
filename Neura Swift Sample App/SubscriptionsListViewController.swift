@@ -84,21 +84,19 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
         if self.subscriptionsArray.count != 0 {
             for subscription in self.subscriptionsArray {
                 
-                if (subscription).isEqual(permissionString) != false {
+                if subscription.isEqual(permissionString) != false {
                     cell.subscribeSwitch.isOn = true
                     break
                 }
                 else { cell.subscribeSwitch.isOn = false }
             }
-        }else { cell.subscribeSwitch.isOn = false }
+        }
         return cell
     }
     
     func subscribeToEventSwitch(_ subscribeSwitch: UISwitch) {
         let cell = subscribeSwitch.superview?.superview as! SubscriptionsTableViewCell
         let indexPath = self.subscriptionsTableView.indexPath(for: cell)
-        //        let permissionDictionary = self.permissionsArray.object(at: indexPath!.row) as! [String: Any]
-        //        let eventName = permissionDictionary["name"] as! String?
         let eventName = permissionsArray[(indexPath?.row)!]
         
         if subscribeSwitch.isOn {
@@ -116,7 +114,6 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
             }
         } else {
             removeSubscriptionWithIdentifier(eventName)
-            
         }
     }
 
@@ -133,7 +130,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     func subscribeToEvent(_ eventName: String) {
         let nSubscription = NSubscription.init(eventNamed: eventName)
         neuraSDK.add(nSubscription)  { result in
-            if (result.error != nil){
+            if result.error != nil {
                 let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okAction)
@@ -144,10 +141,9 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     }
 
     func removeSubscriptionWithIdentifier(_ identifier: String){
-//        let nSubscription = NSubscription.init(identifier: identifier)
         let nSubscription = NSubscription.init(eventName: identifier, identifier: "_\(identifier)")
         neuraSDK.remove(nSubscription) { result in
-            if (result.error != nil) {
+            if result.error != nil {
                 let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okAction)

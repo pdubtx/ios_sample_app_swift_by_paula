@@ -26,27 +26,22 @@ class ViewController: UIViewController {
   @IBOutlet weak var neuraSymbolTop: UIImageView!
   @IBOutlet weak var neuraSymbolBottom: UIImageView!
   
-  let userDefaults = UserDefaults.standard
-  
   //MARK: Lifecycle Functions
   override func viewDidLoad() {
     super.viewDidLoad()
     loginButton.layer.borderWidth = 1
     loginButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-    if userDefaults.bool(forKey: "kIsUserLogin") {
+    if neuraSDK.isAuthenticated() {
       neuraConnectSymbolAnimate()
     } else {
       neuraDisconnectSymbolAnimate()
     }
-    //Get the SDK version
-    let sdkVersion = (neuraSDK.getVersion())! as String
-    let sdkText = "SDK Version: \(sdkVersion)"
+    //Get the SDK and app version
+    let sdkText = "SDK Version: \(neuraSDK.getVersion()!)"
     self.sdkVersionLabel.text = sdkText
-    
     let nsObject: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as AnyObject?
     let appVersion = nsObject as! String
     self.appVersionLabel.text = appVersion
-    
   }
   
   //MARK: Login/Logout Functions
@@ -54,7 +49,6 @@ class ViewController: UIViewController {
     neuraSDK.logout() {result in
         print(result)
     }
-    userDefaults.set(false, forKey: "kIsUserLogin")
     self.neuraDisconnectSymbolAnimate()
   }
   
@@ -124,7 +118,7 @@ class ViewController: UIViewController {
   
   //MARK: IBAction Functions
   @IBAction func loginButtonPressed(_ sender: AnyObject) {
-    if userDefaults.bool(forKey: "kIsUserLogin") {
+    if neuraSDK.isAuthenticated() {
       self.logoutFromNeura()
       self.loginButton.setTitle("Connect and request permissions", for: UIControlState())
     } else {
@@ -134,7 +128,7 @@ class ViewController: UIViewController {
   
   @IBAction func approvedPermissionsListButtonPressed(_ sender: AnyObject) {
     //openNeuraSettingsPanel shows the approved permissions. This is a view inside of the SDK
-    if userDefaults.bool(forKey: "kIsUserLogin") {
+    if neuraSDK.isAuthenticated() {
       neuraSDK.openNeuraSettingsPanel()
     } else{
       let alertController = UIAlertController(title: "The user is not logged in", message: nil, preferredStyle: .alert)
@@ -145,16 +139,15 @@ class ViewController: UIViewController {
   }
   
   @IBAction func permissionsListButtonPressed(_ sender: AnyObject) {
-    if self.permissionsListButton.titleLabel!.text! == "Permissions List" {
+    if !neuraSDK.isAuthenticated() {
       self.performSegue(withIdentifier: "permissionsList", sender: self)
-    }
-    else {
+    } else {
       self.performSegue(withIdentifier: "subscriptionsList", sender: self)
     }
   }
   
   @IBAction func devicesButtonPressed(_ sender: AnyObject) {
-    if userDefaults.bool(forKey: "kIsUserLogin") {
+    if neuraSDK.isAuthenticated() {
       self.performSegue(withIdentifier: "deviceOperations", sender: self)
     }
     else {

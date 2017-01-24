@@ -653,8 +653,8 @@ permissions approved:</string>
                                     <constraint firstAttribute="trailingMargin" secondItem="0Kk-1R-bzj" secondAttribute="trailing" id="ygl-SW-bOM"/>
                                 </constraints>
                             </view>
-                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rjn-Rb-o3r">
-                                <rect key="frame" x="0.0" y="49" width="375" height="194"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rjn-Rb-o3r">
+                                <rect key="frame" x="0.0" y="27" width="375" height="216"/>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

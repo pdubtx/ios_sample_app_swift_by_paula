@@ -72,7 +72,6 @@ class DeviceOperationsViewController: UIViewController, PickerDelegate {
      addDeviceWithCapability allows you to add a device with an optional specified capability
      or name.
      */
-    
     func addDeviceCapability() {
         /*
          For this example, we use stepCount as the capability, but in your app you can

@@ -12,7 +12,7 @@ import NeuraSDK
 class ViewController: UIViewController {
   
   //MARK: Properties
-  let neuraSDK = NeuraSDK.sharedInstance()
+  let neuraSDK = NeuraSDK.shared
   
   //MARK: IBOutlets
   @IBOutlet weak var loginButton: RoundedButton!
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
       neuraDisconnectSymbolAnimate()
     }
     //Get the SDK version
-    let sdkVersion = (neuraSDK?.getVersion())! as String
+    let sdkVersion = (neuraSDK.getVersion())! as String
     let sdkText = "SDK Version: \(sdkVersion)"
     self.sdkVersionLabel.text = sdkText
     
@@ -52,9 +52,9 @@ class ViewController: UIViewController {
   
   //MARK: Login/Logout Functions
   func logoutFromNeura(){
-    neuraSDK?.logout(callback: { (result) in
+    neuraSDK.logout() {result in
         print(result)
-    })
+    }
     userDefaults.set(false, forKey: "kIsUserLogin")
     self.neuraDisconnectSymbolAnimate()
   }
@@ -78,7 +78,7 @@ class ViewController: UIViewController {
      Your implementation may be different
      */
     let authenticationRequest = NeuraAuthenticationRequest(permissions: nPermissions, controller: self)
-    neuraSDK?.authenticate(with: authenticationRequest, callback: { (result) in
+    neuraSDK.authenticate(with: authenticationRequest) { result in
         if (result.error != nil) {
             print("login error = \(result.error)")
             return
@@ -88,7 +88,7 @@ class ViewController: UIViewController {
         self.neuraStatusLabel.textColor = UIColor.green
         self.loginButton.setTitle("Disconnect", for: .normal)
         self.neuraConnectSymbolAnimate()
-    })
+    }
   }
   
   //MARK: Symbol Animation Functions
@@ -137,7 +137,7 @@ class ViewController: UIViewController {
   @IBAction func approvedPermissionsListButtonPressed(_ sender: AnyObject) {
     //openNeuraSettingsPanel shows the approved permissions. This is a view inside of the SDK
     if userDefaults.bool(forKey: "kIsUserLogin") {
-      neuraSDK?.openNeuraSettingsPanel()
+      neuraSDK.openNeuraSettingsPanel()
     } else{
       let alertController = UIAlertController(title: "The user is not logged in", message: nil, preferredStyle: .alert)
       let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)

@@ -10,7 +10,6 @@ import UIKit
 import NeuraSDK
 
 class ViewController: UIViewController {
-  
   //MARK: Properties
   let neuraSDK = NeuraSDK.shared
   
@@ -79,11 +78,10 @@ class ViewController: UIViewController {
      */
     let authenticationRequest = NeuraAuthenticationRequest(permissions: nPermissions, controller: self)
     neuraSDK.authenticate(with: authenticationRequest) { result in
-        if (result.error != nil) {
+        if result.error != nil {
             print("login error = \(result.error)")
             return
         }
-        self.userDefaults.set(true, forKey: "kIsUserLogin")
         self.neuraStatusLabel.text = "Connected"
         self.neuraStatusLabel.textColor = UIColor.green
         self.loginButton.setTitle("Disconnect", for: .normal)

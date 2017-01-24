@@ -31,7 +31,7 @@ class PermissionsListViewController: UIViewController, UITableViewDataSource, UI
      console at dev.theneura.com
      */
     neuraSDK.getAppPermissionsList() { result in
-        if (result.error != nil) {
+        if result.error != nil {
             print ("Error with permissions list: \(result.error?.description())")
             return
         }

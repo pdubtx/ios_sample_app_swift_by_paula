@@ -11,9 +11,9 @@ import UIKit
 import NeuraSDK
 
 class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-    
+
     //MARK: Properties
-    let neuraSDK = NeuraSDK.sharedInstance()
+    let neuraSDK = NeuraSDK.shared
     // Declare the permissions you'll want to request here. These can be found in the app wizard in the developer console at the bottom of the page.
     // They should correspond to the permissions group that you've declared in the authenticate with permissions function elsewhere (in the main view controller in this case)
     var permissionsArray = [
@@ -53,7 +53,8 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func  reloadAllData() {
-        neuraSDK?.getSubscriptionsList(callback: { (subscriptionsResult) in
+        self.subscriptionsArray = []
+        neuraSDK.getSubscriptionsList() { subscriptionsResult in
             if subscriptionsResult.error != nil {
                 return
             }
@@ -61,7 +62,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
                 self.subscriptionsArray.append(subscription.eventName)
             }
             self.subscriptionsTableView.reloadData()
-        })
+        }
     }
     
     //MARK: Table view functions
@@ -102,7 +103,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
         
         if subscribeSwitch.isOn {
             //this function checks whether an event subscription is missing data in order to successfully subscribe
-            if neuraSDK?.isMissingData(forEvent: eventName) == true {
+            if neuraSDK.isMissingData(forEvent: eventName) == true {
                 let alertController = UIAlertController(title: "The place has not been set yet. Create it now?", message: nil, preferredStyle: .alert)
                 let noAction = UIAlertAction(title: "I will wait", style: .default, handler: {_ in self.subscribeToEvent(eventName)})
                 alertController.addAction(noAction)
@@ -115,22 +116,23 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
             }
         } else {
             removeSubscriptionWithIdentifier(eventName)
+            
         }
     }
-    
+
     func addMissingDataToEvent(_ eventName: String, subscribeSwitch: UISwitch){
         //If the user chooses to add the missing data for the event, call this function with the event name
-        neuraSDK?.getMissingData(forEvent: eventName, withCallback: { (missingDataResult) in
+        neuraSDK.getMissingData(forEvent: eventName) { missingDataResult in
             if missingDataResult.error != nil {
                 subscribeSwitch.isOn = false
                 return
             }
-        })
+        }
     }
-    
+
     func subscribeToEvent(_ eventName: String) {
         let nSubscription = NSubscription.init(eventNamed: eventName)
-        neuraSDK?.add(nSubscription, callback: { (result) in
+        neuraSDK.add(nSubscription)  { result in
             if (result.error != nil){
                 let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -138,12 +140,13 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
                 self.present(alertController, animated: true, completion: nil)
             }
             self.reloadAllData()
-        })
+        }
     }
-    
+
     func removeSubscriptionWithIdentifier(_ identifier: String){
-        let nSubscription = NSubscription.init(identifier: identifier)
-        neuraSDK?.remove(nSubscription, callback: { (result) in
+//        let nSubscription = NSubscription.init(identifier: identifier)
+        let nSubscription = NSubscription.init(eventName: identifier, identifier: "_\(identifier)")
+        neuraSDK.remove(nSubscription) { result in
             if (result.error != nil) {
                 let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -151,7 +154,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
                 self.present(alertController, animated: true, completion: nil)
             }
             self.reloadAllData()
-        })
+        }
     }
     
     //MARK: IBActions

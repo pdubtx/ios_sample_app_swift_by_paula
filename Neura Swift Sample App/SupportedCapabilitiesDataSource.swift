@@ -14,7 +14,7 @@ class SupportedCapabilitiesDataSource: NSObject, UITableViewDataSource, DataSour
   internal func reloadData(_ callback: @escaping () -> ()) {
     self.list = []
     //Returns a list of all capabilities that Neura supports
-    neuraSDK?.getSupportedCapabilitiesList(callback: { (capabilitiesResult) in
+    neuraSDK.getSupportedCapabilitiesList() { (capabilitiesResult) in
         if capabilitiesResult.error != nil {
             return
         }
@@ -23,12 +23,12 @@ class SupportedCapabilitiesDataSource: NSObject, UITableViewDataSource, DataSour
             self.list.append(name)
         }
         callback()
-    })
+    }
   }
 
   
   //MARK: Properties
-  let neuraSDK = NeuraSDK.sharedInstance()
+  let neuraSDK = NeuraSDK.shared
   var list = [String]()
 
   

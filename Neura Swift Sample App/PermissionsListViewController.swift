@@ -13,7 +13,7 @@ import NeuraSDK
 class PermissionsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
   //MARK: Properties
-  let neuraSDK = NeuraSDK.sharedInstance()
+  let neuraSDK = NeuraSDK.shared
   var permissionsArray: [NPermission] = []
   @IBOutlet weak var permissionsTable: UITableView!
   
@@ -30,20 +30,14 @@ class PermissionsListViewController: UIViewController, UITableViewDataSource, UI
      Returns a list of all the permissions that an app may request. These may be edited in the
      console at dev.theneura.com
      */
-    neuraSDK?.getAppPermissionsList(callback: { (permissionsResult) in
-        if permissionsResult.error != nil {
-            return
-        }
-        
-    })
-    neuraSDK?.getAppPermissionsList(callback: { (result) in
+    neuraSDK.getAppPermissionsList() { result in
         if (result.error != nil) {
             print ("Error with permissions list: \(result.error?.description())")
             return
         }
         self.permissionsArray = result.permissions
         self.permissionsTable.reloadData()
-    })
+    }
   }
   
   //MARK: Table View Functions

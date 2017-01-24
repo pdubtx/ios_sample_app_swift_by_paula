@@ -12,14 +12,14 @@ import NeuraSDK
 
 class SupportedDevicesDataSource: NSObject, UITableViewDataSource, DataSourceProtocol {
   //MARK: Properties
-  let neuraSDK = NeuraSDK.sharedInstance()
+  let neuraSDK = NeuraSDK.shared
   var list = [String]()
   var status = [Bool]()
   
   internal func reloadData(_ callback: @escaping () -> ()) {
     self.list = []
     //Returns a list of all devices that Neura supports
-    neuraSDK?.getSupportedDevicesList(callback: { (devicesResult) in
+    neuraSDK.getSupportedDevicesList() { (devicesResult) in
         if devicesResult.error != nil {
             return
         }
@@ -27,7 +27,7 @@ class SupportedDevicesDataSource: NSObject, UITableViewDataSource, DataSourcePro
             self.list.append(device.name)
         }
         callback()
-    })
+    }
   }
   
   //MARK: Table View Functions

@@ -26,12 +26,10 @@ class SupportedCapabilitiesDataSource: NSObject, UITableViewDataSource, DataSour
     }
   }
 
-  
   //MARK: Properties
   let neuraSDK = NeuraSDK.shared
   var list = [String]()
 
-  
   //MARK: Table View Functions
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1

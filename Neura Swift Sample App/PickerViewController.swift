@@ -12,13 +12,13 @@ import NeuraSDK
 
 //MARK: Picker Delegate Protocol
 protocol PickerDelegate: class {
-  func selectedCapability(_ name: String)
+  func selectedCapability(_ capability: NCapability)
 }
 
 class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
   //MARK: Properties
-  let neuraSDK = NeuraSDK.sharedInstance()
-  var pickerData = [String]()
+  let neuraSDK = NeuraSDK.shared
+  var capabilities = [NCapability]()
   weak var delegate: PickerDelegate? = nil
   @IBOutlet weak var capabilityPicker: UIPickerView!
   
@@ -38,16 +38,13 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
   func getData() {
     //Gets all of Neura's supported capabilities.
     
-    neuraSDK?.getSupportedCapabilitiesList(callback: { (capabilitiesResult) in
+    neuraSDK.getSupportedCapabilitiesList() {capabilitiesResult in
         if capabilitiesResult.error != nil {
             return
         }
-        for capability in capabilitiesResult.capabilities {
-            let name = capability.name
-            self.pickerData.append(name)
-        }
+        self.capabilities = capabilitiesResult.capabilities
         self.capabilityPicker.reloadAllComponents()  
-    })
+    }
   }
   
   //MARK: Picker Functions
@@ -56,11 +53,11 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
   }
   
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return pickerData.count;
+    return capabilities.count;
   }
   
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return pickerData[row]
+    return capabilities[row].displayName
   }
   
   func show() {
@@ -73,8 +70,8 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
   
   //MARK: IBAction Functions
   @IBAction func checkTouched(_ sender: AnyObject) {
-    let name = self.pickerData[self.capabilityPicker.selectedRow(inComponent: 0)]
-    self.delegate?.selectedCapability(name)
+    let selectedCapability = self.capabilities[self.capabilityPicker.selectedRow(inComponent: 0)]
+    self.delegate?.selectedCapability(selectedCapability)
     self.hide()
   }
   

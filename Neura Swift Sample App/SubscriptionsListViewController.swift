@@ -16,7 +16,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     let neuraSDK = NeuraSDK.shared
     // Declare the permissions you'll want to request here. These can be found in the app wizard in the developer console at the bottom of the page.
     // They should correspond to the permissions group that you've declared in the authenticate with permissions function elsewhere (in the main view controller in this case)
-    var permissionsArray = [
+    var eventNamesArray = [
         "userArrivedHome",
         "userArrivedHomeFromWork",
         "userLeftHome",
@@ -38,7 +38,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
         "userStartedRunning",
         "userFinishedTransitByWalking"
     ]
-    var subscriptionsArray = [String]()
+    var subscriptions = [String: NSubscription]()
     let cellReuseIdentifier = "SuscriptionsListViewCell"
     
     //MARK: IBOutlets
@@ -52,14 +52,12 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
         reloadAllData()
     }
     
-    func  reloadAllData() {
-        self.subscriptionsArray = []
-        neuraSDK.getSubscriptionsList() { subscriptionsResult in
-            if subscriptionsResult.error != nil {
-                return
-            }
-            for subscription in subscriptionsResult.subscriptions {
-                self.subscriptionsArray.append(subscription.eventName)
+    func reloadAllData() {
+        self.subscriptions.removeAll()
+        neuraSDK.getSubscriptionsList() { result in
+            guard result.success else { return }
+            for subscription in result.subscriptions {
+                self.subscriptions[subscription.eventName] = subscription
             }
             self.subscriptionsTableView.reloadData()
         }
@@ -71,33 +69,35 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return permissionsArray.count
+        return self.eventNamesArray.count
     }
     
     //Create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:SubscriptionsTableViewCell = self.subscriptionsTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! SubscriptionsTableViewCell
-        cell.subscribeSwitch.addTarget(self, action: #selector(SubscriptionsListViewController.subscribeToEventSwitch(_:)), for: UIControlEvents.valueChanged)
+        let cell:SubscriptionsTableViewCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! SubscriptionsTableViewCell
         
-        let permissionString = permissionsArray[(indexPath as IndexPath).row]
-        cell.subscriptionName.text = permissionString
-        if self.subscriptionsArray.count != 0 {
-            for subscription in self.subscriptionsArray {
-                
-                if subscription.isEqual(permissionString) != false {
-                    cell.subscribeSwitch.isOn = true
-                    break
-                }
-                else { cell.subscribeSwitch.isOn = false }
-            }
+        // Add a handler for value changes, if missing.
+        if cell.subscribeSwitch.allTargets.count == 0 {
+            cell.subscribeSwitch.addTarget(self, action: #selector(SubscriptionsListViewController.subscribeToEventSwitch(_:)), for: UIControlEvents.valueChanged)
         }
+        
+        // Configure the cell.
+        let eventName = self.eventNamesArray[indexPath.item]
+        cell.subscriptionName?.text = eventName
+        
+        if let _ = self.subscriptions[eventName] {
+            cell.subscribeSwitch.isOn = true
+        } else {
+            cell.subscribeSwitch.isOn = false
+        }
+        
         return cell
     }
     
     func subscribeToEventSwitch(_ subscribeSwitch: UISwitch) {
         let cell = subscribeSwitch.superview?.superview as! SubscriptionsTableViewCell
         let indexPath = self.subscriptionsTableView.indexPath(for: cell)
-        let eventName = permissionsArray[(indexPath?.row)!]
+        let eventName = self.eventNamesArray[(indexPath?.row)!]
         
         if subscribeSwitch.isOn {
             //this function checks whether an event subscription is missing data in order to successfully subscribe

@@ -53,24 +53,10 @@ class ViewController: UIViewController {
   }
   
   func loginToNeura(){
-    /*
-     Specify your permissions array in an NSArray. These can be found in the the developer
-     console under "Permissions."
-     */
-    let permissionsList: Array = [
-        "presenceAtHome",
-        "physicalActivity"
-    ]
-    /*
-     You'll then need to cast your permissions strings to a [NPermission]
-     using the class method below.
-     */
-    let nPermissions = NPermission.list(from: permissionsList)
-    /*
-     This logs the user in. In this case, we're saving a bool to userDefaults to indicate that the user is logged in.
-     Your implementation may be different
-     */
-    let authenticationRequest = NeuraAuthenticationRequest(permissions: nPermissions, controller: self)
+    let authenticationRequest = NeuraAuthenticationRequest(controller: self)
+    // By default, will authenticate with all the permissions enabled for this app on the devsite
+    // If you want to control the list of permissions on the client side, you can set a list of specific permissions
+    // on the authenticationRequest.permissions property.
     neuraSDK.authenticate(with: authenticationRequest) { result in
         if result.error != nil {
             print("login error = \(result.error)")

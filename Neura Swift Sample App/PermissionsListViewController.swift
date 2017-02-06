@@ -13,8 +13,8 @@ import NeuraSDK
 class PermissionsListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
   //MARK: Properties
-  let neuraSDK = NeuraSDK.sharedInstance()
-  var permissionsArray: NSArray = []
+  let neuraSDK = NeuraSDK.shared
+  var permissionsArray: [NPermission] = []
   @IBOutlet weak var permissionsTable: UITableView!
   
   //MARK: Lifecycle Functions
@@ -30,11 +30,13 @@ class PermissionsListViewController: UIViewController, UITableViewDataSource, UI
      Returns a list of all the permissions that an app may request. These may be edited in the
      console at dev.theneura.com
      */
-    neuraSDK.getAppPermissionsWithHandler { (responseArray, error) in
-      if error == nil{
-        self.permissionsArray = responseArray!
+    neuraSDK.getAppPermissionsList() { result in
+        if result.error != nil {
+            print ("Error with permissions list: \(result.error?.description())")
+            return
+        }
+        self.permissionsArray = result.permissions
         self.permissionsTable.reloadData()
-      }
     }
   }
   
@@ -43,21 +45,19 @@ class PermissionsListViewController: UIViewController, UITableViewDataSource, UI
     return 1
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return permissionsArray.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = permissionsTable.dequeueReusableCellWithIdentifier("activityCell", forIndexPath: indexPath)
-    let permissionDictionary = permissionsArray[(indexPath as NSIndexPath).row]
-    let textString = permissionDictionary["displayName"] as! String
-    
-    cell.textLabel?.text = textString
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = permissionsTable.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath)
+    let permissionObject = permissionsArray[(indexPath as IndexPath).row]
+    cell.textLabel?.text = permissionObject.name
     return cell
   }
   
   //MARK: IBAction Functions
-  @IBAction func backButtonPressed(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func backButtonPressed(_ sender: AnyObject) {
+    self.dismiss(animated: true, completion: nil)
   }
 }

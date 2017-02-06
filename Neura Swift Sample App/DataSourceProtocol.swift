@@ -13,5 +13,5 @@ typealias FetchCallback = () -> ()
 
 protocol DataSourceProtocol: UITableViewDataSource {
   var list: [String] {get set}
-  func reloadData(callback: FetchCallback)
+  func reloadData(_  callback: @escaping FetchCallback)
 }

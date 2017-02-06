@@ -12,36 +12,36 @@ import NeuraSDK
 
 class SupportedDevicesDataSource: NSObject, UITableViewDataSource, DataSourceProtocol {
   //MARK: Properties
-  let neuraSDK = NeuraSDK.sharedInstance()
+  let neuraSDK = NeuraSDK.shared
   var list = [String]()
   var status = [Bool]()
   
-  func reloadData(callback: FetchCallback) {
+  internal func reloadData(_ callback: @escaping () -> ()) {
     self.list = []
     //Returns a list of all devices that Neura supports
-    neuraSDK.getSupportedDevicesListWithHandler({ (responseData, error) -> Void in
-      guard let data = responseData as? [String: NSObject] else { return }
-      guard let devices = data["devices"] as? [[String: NSObject]] else { return }
-      for device in devices {
-        let name = device["name"] as! String
-        self.list.append(name)
-      }
-      callback()
-    })
+    neuraSDK.getSupportedDevicesList() { (devicesResult) in
+        if devicesResult.error != nil {
+            return
+        }
+        for device in devicesResult.devices {
+            self.list.append(device.name)
+        }
+        callback()
+    }
   }
   
   //MARK: Table View Functions
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return list.count
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! DeviceOperationsTableViewCell
-    cell.name.text = list[(indexPath as NSIndexPath).row]
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DeviceOperationsTableViewCell
+    cell.name.text = list[(indexPath as IndexPath).row]
     return cell
   }
 }

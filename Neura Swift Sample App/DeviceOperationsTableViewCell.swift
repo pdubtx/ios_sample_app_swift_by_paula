@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class DeviceOperationsTableViewCell: UITableViewCell {
-  
   //MARK: Properties
   @IBOutlet weak var name: UILabel!
 }

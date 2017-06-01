@@ -4,4 +4,7 @@
    <FileRef
       location = "group:Neura Swift Sample App.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>

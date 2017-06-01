@@ -128,7 +128,8 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     }
 
     func subscribeToEvent(_ eventName: String) {
-        let nSubscription = NSubscription.init(eventNamed: eventName)
+        let webHookId = "myWebHookId" // <== You will need to change this id to the one you defined on the dev site.
+        let nSubscription = NSubscription(eventName: eventName, webhookId: webHookId)
         neuraSDK.add(nSubscription)  { result in
             if result.error != nil {
                 let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
@@ -141,16 +142,16 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     }
 
     func removeSubscriptionWithIdentifier(_ identifier: String){
-        let nSubscription = NSubscription.init(eventName: identifier, identifier: "_\(identifier)")
-        neuraSDK.remove(nSubscription) { result in
-            if result.error != nil {
-                let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true, completion: nil)
-            }
-            self.reloadAllData()
-        }
+//        let nSubscription = NSubscription.init(eventName: identifier, identifier: "_\(identifier)")
+//        neuraSDK.remove(nSubscription) { result in
+//            if result.error != nil {
+//                let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
+//                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                alertController.addAction(okAction)
+//                self.present(alertController, animated: true, completion: nil)
+//            }
+//            self.reloadAllData()
+//        }
     }
     
     //MARK: IBActions

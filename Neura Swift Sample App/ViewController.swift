@@ -59,7 +59,6 @@ class ViewController: UIViewController {
     // on the authenticationRequest.permissions property.
     neuraSDK.authenticate(with: authenticationRequest) { result in
         if result.error != nil {
-            print("login error = \(result.error)")
             return
         }
         self.neuraStatusLabel.text = "Connected"

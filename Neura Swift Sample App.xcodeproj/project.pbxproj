@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0877CEB41F39FF250020B59E /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0877CEB31F39FF250020B59E /* PushNotifications.swift */; };
+		9757AA5BA993452C4286B2B7 /* Pods_Neura_Swift_Sample_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698E00058F4480B85D40194C /* Pods_Neura_Swift_Sample_App.framework */; };
 		E15281491DC0E11F001B7563 /* DataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15281481DC0E11F001B7563 /* DataSourceProtocol.swift */; };
 		E152814C1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152814A1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift */; };
 		E152814D1DC0E132001B7563 /* SupportedDevicesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152814B1DC0E132001B7563 /* SupportedDevicesDataSource.swift */; };
@@ -23,13 +25,13 @@
 		E19DB1E91DC0E0960045AA6E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19DB1C81DC0DFC20045AA6E /* RoundedButton.swift */; };
 		E19DB1EA1DC0E0A90045AA6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E19DB1DC1DC0E03C0045AA6E /* Assets.xcassets */; };
 		E19DB1ED1DC0E0AF0045AA6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E19DB1C61DC0DFB50045AA6E /* Main.storyboard */; };
-		EA621D8BFFD86082C54B2CD1 /* libPods-Neura Swift Sample App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE38499FE1EAF6B3A9378593 /* libPods-Neura Swift Sample App.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		052C7FC66BC1022B74AE05C8 /* Pods-Neura Swift Sample App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neura Swift Sample App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Neura Swift Sample App/Pods-Neura Swift Sample App.debug.xcconfig"; sourceTree = "<group>"; };
+		0877CEB31F39FF250020B59E /* PushNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
+		698E00058F4480B85D40194C /* Pods_Neura_Swift_Sample_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Neura_Swift_Sample_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		766AEE5FFE920C3AAB641E00 /* Pods-Neura Swift Sample App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neura Swift Sample App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Neura Swift Sample App/Pods-Neura Swift Sample App.release.xcconfig"; sourceTree = "<group>"; };
-		AE38499FE1EAF6B3A9378593 /* libPods-Neura Swift Sample App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Neura Swift Sample App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E125F7F81D328BF00078E7B4 /* Neura Swift Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neura Swift Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15281481DC0E11F001B7563 /* DataSourceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataSourceProtocol.swift; path = "Neura Swift Sample App/DataSourceProtocol.swift"; sourceTree = SOURCE_ROOT; };
 		E152814A1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SupportedCapabilitiesDataSource.swift; path = "Neura Swift Sample App/SupportedCapabilitiesDataSource.swift"; sourceTree = SOURCE_ROOT; };
@@ -56,17 +58,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA621D8BFFD86082C54B2CD1 /* libPods-Neura Swift Sample App.a in Frameworks */,
+				9757AA5BA993452C4286B2B7 /* Pods_Neura_Swift_Sample_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0877CEB21F39FF0F0020B59E /* PushNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				0877CEB31F39FF250020B59E /* PushNotifications.swift */,
+			);
+			name = PushNotifications;
+			path = "Neura Swift Sample App/PushNotifications";
+			sourceTree = SOURCE_ROOT;
+		};
 		6D7E1E65B57B1772D9762509 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AE38499FE1EAF6B3A9378593 /* libPods-Neura Swift Sample App.a */,
+				698E00058F4480B85D40194C /* Pods_Neura_Swift_Sample_App.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -105,6 +116,7 @@
 				E19DB1C41DC0DFAF0045AA6E /* AppDelegate.swift */,
 				E19DB1C61DC0DFB50045AA6E /* Main.storyboard */,
 				E1E02F4F1DA54BBC001E83B4 /* Main View Controller */,
+				0877CEB21F39FF0F0020B59E /* PushNotifications */,
 				E1E02F4E1DA54B7B001E83B4 /* Subscriptions List View Controller */,
 				E19D02F71DA11DA200D67556 /* DeviceOperationsViewController */,
 				E173C8FD1DAB81FB002D46F7 /* PermissionsListViewController */,
@@ -288,7 +300,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -298,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0877CEB41F39FF250020B59E /* PushNotifications.swift in Sources */,
 				E15281491DC0E11F001B7563 /* DataSourceProtocol.swift in Sources */,
 				E19DB1E01DC0E0960045AA6E /* AppDelegate.swift in Sources */,
 				E19DB1E11DC0E0960045AA6E /* ViewController.swift in Sources */,

@@ -2,7 +2,7 @@
 //  TestViewController.swift
 //  Push Notifications Test
 //
-//  Created by Beau Harper on 7/12/16.
+//  Created by Neura on 7/12/16.
 //  Copyright © 2016 Neura. All rights reserved.
 //
 

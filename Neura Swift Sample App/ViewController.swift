@@ -2,148 +2,234 @@
 //  ViewController.swift
 //  Push Notifications Test
 //
-//  Created by Beau Harper on 7/10/16.
+//  Created by Neura on 7/10/16.
 //  Copyright © 2016 Neura. All rights reserved.
 //
 
 import UIKit
 import NeuraSDK
+import MBProgressHUD
 
-class ViewController: UIViewController {
-  //MARK: Properties
-  let neuraSDK = NeuraSDK.shared
-  
-  //MARK: IBOutlets
-  @IBOutlet weak var loginButton: RoundedButton!
-  @IBOutlet weak var approvedPermissionsListButton: RoundedButton!
-  @IBOutlet weak var permissionsListButton: RoundedButton!
-  @IBOutlet weak var devicesButton: RoundedButton!
-  
-  @IBOutlet weak var sdkVersionLabel: UILabel!
-  @IBOutlet weak var neuraStatusLabel: UILabel!
-  @IBOutlet weak var appVersionLabel: UILabel!
-  
-  @IBOutlet weak var neuraSymbolTop: UIImageView!
-  @IBOutlet weak var neuraSymbolBottom: UIImageView!
-  
-  //MARK: Lifecycle Functions
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    loginButton.layer.borderWidth = 1
-    loginButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-    if neuraSDK.isAuthenticated() {
-      neuraConnectSymbolAnimate()
-    } else {
-      neuraDisconnectSymbolAnimate()
+class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
+    //MARK: Properties
+    let neuraSDK = NeuraSDK.shared
+    
+    //MARK: IBOutlets
+    @IBOutlet weak var loginButton: RoundedButton!
+    @IBOutlet weak var approvedPermissionsListButton: RoundedButton!
+    @IBOutlet weak var permissionsListButton: RoundedButton!
+    @IBOutlet weak var devicesButton: RoundedButton!
+    
+    @IBOutlet weak var sdkVersionLabel: UILabel!
+    @IBOutlet weak var neuraStatusLabel: UILabel!
+    @IBOutlet weak var appVersionLabel: UILabel!
+    
+    @IBOutlet weak var neuraSymbolTop: UIImageView!
+    @IBOutlet weak var neuraSymbolBottom: UIImageView!
+    
+    // MARK: - VC Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupUI()
+        
+        // (optional) Set an authentication state delegate to get updates
+        // when the Neura authentication state changes.
+        NeuraSDK.shared.authenticationStateDelegate = self
     }
-    //Get the SDK and app version
-    let sdkText = "SDK Version: \(neuraSDK.getVersion()!)"
-    self.sdkVersionLabel.text = sdkText
-    let nsObject: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as AnyObject?
-    let appVersion = nsObject as! String
-    self.appVersionLabel.text = appVersion
-  }
-  
-  //MARK: Login/Logout Functions
-  func logoutFromNeura(){
-    neuraSDK.logout() {result in
-        print(result)
+    
+    // MARK: - UI Updated based on authentication state
+    func updateSymbolState() {
+        let isConnected = NeuraSDK.shared.isAuthenticated()
+        self.neuraSymbolTop.alpha = isConnected ? 1.0 : 0.3
+        self.neuraSymbolBottom.alpha = isConnected ? 1.0 : 0.3
     }
-    self.neuraDisconnectSymbolAnimate()
-  }
-  
-  func loginToNeura(){
-    let authenticationRequest = NeuraAuthenticationRequest(controller: self)
-    // By default, will authenticate with all the permissions enabled for this app on the devsite
-    // If you want to control the list of permissions on the client side, you can set a list of specific permissions
-    // on the authenticationRequest.permissions property.
-    neuraSDK.authenticate(with: authenticationRequest) { result in
-        if result.error != nil {
+    
+    func updateAuthenticationButtonState() {
+        let authState = NeuraSDK.shared.authenticationState()
+        var title = ""
+        switch authState {
+        case .authenticatedAnonymously:
+            title = "Disconnect"
+            
+        case .accessTokenRequested:
+            title = "Connecting..."
+            
+        default:
+            title = "Connect to Neura"
+        }
+        self.loginButton.setTitle(title, for: .normal)
+    }
+
+    func updateButtonsState() {
+        let title = NeuraSDK.shared.isAuthenticated() ? "Edit Subscriptions" : "Permissions List"
+        self.permissionsListButton.setTitle(title, for: .normal)
+    }
+    
+    func updateAuthenticationLabelState() {
+        let authState = NeuraSDK.shared.authenticationState()
+        var text = ""
+        var color = UIColor.black
+        switch authState {
+        case .accessTokenRequested:
+            color = .blue
+            text = "Requested tokens..."
+        case .authenticated, .authenticatedAnonymously:
+            color = UIColor(colorLiteralRed: 0, green: 0.4, blue: 0, alpha: 1.0)
+            text = "Connected"
+        case .failedReceivingAccessToken:
+            color = .red
+            text = "Failed receiving tokens"
+        default:
+            color = .darkGray
+            text = "Disconnected"
+        }
+        self.neuraStatusLabel.text = text
+        self.neuraStatusLabel.textColor = color
+    }
+    
+    //MARK: Authentication
+    func loginToNeura() {
+        // Here we will be using the anonymous authentication flow offered by the SDK.
+        // The Neura SDK also offers phone number based authentication with user's validation/confirmation.
+        // Check the docs for full info about all the available authentication options.
+        guard let deviceToken = PushNotifications.storedDeviceToken() else {
+            self.showAlert(title: "Missing push token", message: "The user must allow push notifications for anonymous login to work.")
             return
         }
-        self.neuraStatusLabel.text = "Connected"
-        self.neuraStatusLabel.textColor = UIColor.green
-        self.loginButton.setTitle("Disconnect", for: .normal)
-        self.neuraConnectSymbolAnimate()
+        
+        self.showBlockingProgress()
+        
+        let request = NeuraAnonymousAuthenticationRequest(deviceToken: deviceToken)
+        NeuraSDK.shared.authenticate(with: request) { result in
+            if let error = result.error {
+                // Handle authentication errors if required
+                NSLog("login error = %@", error);
+                self.showAlert(title: "Login error", message: error.localizedDescription)
+                self.hideBlockingProgress()
+                return
+            }
+            
+            // Handle success failure
+            if result.success {
+                // Successful authentication
+                // (access token will be received by push)
+            } else {
+                // Handle failed login.
+                self.showAlert(title: "Login failed", message: nil)
+            }
+            self.hideBlockingProgress()
+        }
     }
-  }
-  
-  //MARK: Symbol Animation Functions
-  func neuraConnectSymbolAnimate() {
-    let topTransformation = CGAffineTransform.identity
-    let bottomTransformation = CGAffineTransform.identity
-    UIView.animate(withDuration: 0.4, delay: 0.1, options: .curveEaseIn, animations: {
-      self.neuraSymbolTop.transform = topTransformation
-      self.neuraSymbolBottom.transform = bottomTransformation
-      self.neuraSymbolTop.alpha = 1
-      self.neuraSymbolBottom.alpha = 1
-    }) { (finished) in
-      self.neuraStatusLabel.text = "Connected"
-      self.neuraStatusLabel.textColor = UIColor.green
-      self.loginButton.setTitle("Disconnect", for: UIControlState())
-      self.permissionsListButton.setTitle("Edit Subscriptions", for: UIControlState())
+    
+    func logoutFromNeura(){
+        guard NeuraSDK.shared.isAuthenticated() else { return }
+        self.showBlockingProgress()
+        NeuraSDK.shared.logout { result in
+            // Handle errors if required
+            self.hideBlockingProgress()
+        }
     }
-  }
-  
-  func neuraDisconnectSymbolAnimate() {
-    let topTransformation = CGAffineTransform(translationX: -20, y: 0)
-    let bottomTransformation = CGAffineTransform(translationX: 20, y: 0)
-    UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
-      self.neuraSymbolTop.transform = topTransformation
-      self.neuraSymbolBottom.transform = bottomTransformation
-      self.neuraSymbolTop.alpha = 0.2
-      self.neuraSymbolBottom.alpha = 0.2
-    }) { (finished) in
-      self.neuraStatusLabel.text = "Disconnected"
-      self.neuraStatusLabel.textColor = UIColor.red
-      self.loginButton.setTitle("Connect and request permissions", for: UIControlState())
-      self.permissionsListButton.setTitle("Permissions List", for: UIControlState())
+    
+    //
+    // MARK: - NeuraAuthenticationStateDelegate
+    //
+    func neuraAuthStateUpdated(_ state: NeuraAuthState) {
+        self.updateAuthenticationLabelState()
+        self.updateSymbolState()
+        self.updateAuthenticationButtonState()
+        self.updateButtonsState()
     }
-  }
-  
-  //MARK: IBAction Functions
-  @IBAction func loginButtonPressed(_ sender: AnyObject) {
-    if neuraSDK.isAuthenticated() {
-      self.logoutFromNeura()
-      self.loginButton.setTitle("Connect and request permissions", for: UIControlState())
-    } else {
-      self.loginToNeura()
+    
+    //
+    // MARK: - User alerts
+    //
+    func showUserNotLoggedInAlert() {
+        self.showAlert(title: "The user is not logged in", message: nil)
     }
-  }
-  
-  @IBAction func approvedPermissionsListButtonPressed(_ sender: AnyObject) {
-    //openNeuraSettingsPanel shows the approved permissions. This is a view inside of the SDK
-    if neuraSDK.isAuthenticated() {
-      neuraSDK.openNeuraSettingsPanel()
-    } else{
-      let alertController = UIAlertController(title: "The user is not logged in", message: nil, preferredStyle: .alert)
-      let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-      alertController.addAction(okAction)
-      self.present(alertController, animated: true, completion: nil)
+    
+    func showAlert(title: String?, message: String?) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
     }
-  }
-  
-  @IBAction func permissionsListButtonPressed(_ sender: AnyObject) {
-    if !neuraSDK.isAuthenticated() {
-      self.performSegue(withIdentifier: "permissionsList", sender: self)
-    } else {
-      self.performSegue(withIdentifier: "subscriptionsList", sender: self)
+    
+    //
+    // MARK: - Blocking progress
+    //
+    func showBlockingProgress() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
     }
-  }
-  
-  @IBAction func devicesButtonPressed(_ sender: AnyObject) {
-    if neuraSDK.isAuthenticated() {
-      self.performSegue(withIdentifier: "deviceOperations", sender: self)
+    
+    func hideBlockingProgress() {
+        MBProgressHUD.hide(for: self.view, animated: true)
     }
-    else {
-      let alertController = UIAlertController(title: "The user is not logged in", message: nil, preferredStyle: .alert)
-      let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-      alertController.addAction(okAction)
-      self.present(alertController, animated: true, completion: nil)
+    
+    //
+    // MARK: - UI Setup
+    //
+    func setupUI() {
+        loginButton.layer.borderWidth = 1
+        loginButton.layer.borderColor = UIColor(red: 0.2102, green: 0.7655, blue: 0.9545, alpha: 1).cgColor
+
+        //Get the SDK and app version
+        let sdkText = "SDK Version: \(neuraSDK.getVersion()!)"
+        self.sdkVersionLabel.text = sdkText
+        let nsObject: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as AnyObject?
+        let appVersion = nsObject as! String
+        self.appVersionLabel.text = appVersion
+        
+        // Auth State
+        self.updateSymbolState()
+        self.updateButtonsState()
+        self.updateAuthenticationLabelState()
+        self.updateAuthenticationButtonState()
     }
-  }
-  
-  @IBAction func sendLogPressed(_ sender: AnyObject) {
-    NotificationCenter.default.post(name: Notification.Name(rawValue: "NeuraSdkPrivateSendLogByMailNotification"), object: nil)
-  }
+    
+    //
+    // MARK: - IBAction Functions
+    //
+    @IBAction func loginButtonPressed(_ sender: AnyObject) {
+        if neuraSDK.isAuthenticated() {
+            self.logoutFromNeura()
+            self.loginButton.setTitle("Connect and request permissions", for: UIControlState())
+        } else {
+            self.loginToNeura()
+        }
+    }
+    
+    @IBAction func approvedPermissionsListButtonPressed(_ sender: AnyObject) {
+        //openNeuraSettingsPanel shows the approved permissions. This is a view inside of the SDK
+        if neuraSDK.isAuthenticated() {
+            neuraSDK.openNeuraSettingsPanel()
+        } else{
+            let alertController = UIAlertController(title: "The user is not logged in", message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func permissionsListButtonPressed(_ sender: AnyObject) {
+        if !neuraSDK.isAuthenticated() {
+            self.performSegue(withIdentifier: "permissionsList", sender: self)
+        } else {
+            self.performSegue(withIdentifier: "subscriptionsList", sender: self)
+        }
+    }
+    
+    @IBAction func devicesButtonPressed(_ sender: AnyObject) {
+        if neuraSDK.isAuthenticated() {
+            self.performSegue(withIdentifier: "deviceOperations", sender: self)
+        }
+        else {
+            let alertController = UIAlertController(title: "The user is not logged in", message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func sendLogPressed(_ sender: AnyObject) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "NeuraSdkPrivateSendLogByMailNotification"), object: nil)
+    }
 }

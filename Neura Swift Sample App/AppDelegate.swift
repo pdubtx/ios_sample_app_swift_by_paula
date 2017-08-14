@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         
+        NeuraSDK.shared.appToken()
+        
         // Handle here your own remote notifications.
         // It is your responsibility to call the completionHandler.
         completionHandler(.noData)

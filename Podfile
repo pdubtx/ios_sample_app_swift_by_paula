@@ -2,7 +2,7 @@ use_frameworks!
 platform :ios, '9.0'
 
 def basic_app_pods
-    pod 'NeuraSDKFramework', '~> 4.0'
+    pod 'NeuraSDKFramework', '~> 4.1'
     pod 'MBProgressHUD', '~> 1.0'
 end
 

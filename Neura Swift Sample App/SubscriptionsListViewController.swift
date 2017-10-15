@@ -94,7 +94,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
         return cell
     }
     
-    func subscribeToEventSwitch(_ subscribeSwitch: UISwitch) {
+    @objc func subscribeToEventSwitch(_ subscribeSwitch: UISwitch) {
         let cell = subscribeSwitch.superview?.superview as! SubscriptionsTableViewCell
         let indexPath = self.subscriptionsTableView.indexPath(for: cell)
         let eventName = self.eventNamesArray[(indexPath?.row)!]

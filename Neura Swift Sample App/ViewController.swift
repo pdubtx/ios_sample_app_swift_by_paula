@@ -8,7 +8,6 @@
 
 import UIKit
 import NeuraSDK
-import MBProgressHUD
 
 class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
     //MARK: Properties
@@ -74,7 +73,7 @@ class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
             color = .blue
             text = "Requested tokens..."
         case .authenticated, .authenticatedAnonymously:
-            color = UIColor(colorLiteralRed: 0, green: 0.4, blue: 0, alpha: 1.0)
+            color = UIColor(red: 0, green: 0.4, blue: 0, alpha: 1.0)
             text = "Connected"
         case .failedReceivingAccessToken:
             color = .red
@@ -89,17 +88,10 @@ class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
     
     //MARK: Authentication
     func loginToNeura() {
-        // Here we will be using the anonymous authentication flow offered by the SDK.
-        // The Neura SDK also offers phone number based authentication with user's validation/confirmation.
-        // Check the docs for full info about all the available authentication options.
-        guard let deviceToken = PushNotifications.storedDeviceToken() else {
-            self.showAlert(title: "Missing push token", message: "The user must allow push notifications for anonymous login to work.")
-            return
-        }
-        
         self.showBlockingProgress()
         
-        let request = NeuraAnonymousAuthenticationRequest(deviceToken: deviceToken)
+//        let request = NeuraAnonymousAuthenticationRequest(deviceToken: deviceToken)
+        let request = NeuraAuthenticationRequest(controller: self)
         NeuraSDK.shared.authenticate(with: request) { result in
             if let error = result.error {
                 // Handle authentication errors if required

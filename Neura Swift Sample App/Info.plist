@@ -26,8 +26,12 @@
 	<true/>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Bluetooth is required to provide a better user experience</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>GPS is required to provide a better user experience</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Location data is required to to provide a better experience</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Location data is required to to provide a better experience</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Location data is required to to provide a better experience</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Motion is required to provide a better user experience</string>
 	<key>UIBackgroundModes</key>

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0838F6B81F93551200B39E1D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0838F6B31F93533100B39E1D /* MBProgressHUD.m */; };
 		0877CEB41F39FF250020B59E /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0877CEB31F39FF250020B59E /* PushNotifications.swift */; };
+		08DD60691F936145007932AD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DD60681F936145007932AD /* NotificationService.swift */; };
+		08DD606D1F936145007932AD /* Notifications.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 08DD60661F936145007932AD /* Notifications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9757AA5BA993452C4286B2B7 /* Pods_Neura_Swift_Sample_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698E00058F4480B85D40194C /* Pods_Neura_Swift_Sample_App.framework */; };
 		E15281491DC0E11F001B7563 /* DataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15281481DC0E11F001B7563 /* DataSourceProtocol.swift */; };
 		E152814C1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152814A1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift */; };
@@ -28,12 +30,39 @@
 		E19DB1ED1DC0E0AF0045AA6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E19DB1C61DC0DFB50045AA6E /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		08DD606B1F936145007932AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E125F7F01D328BF00078E7B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 08DD60651F936145007932AD;
+			remoteInfo = Notifications;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		08DD60711F936145007932AD /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				08DD606D1F936145007932AD /* Notifications.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		052C7FC66BC1022B74AE05C8 /* Pods-Neura Swift Sample App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neura Swift Sample App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Neura Swift Sample App/Pods-Neura Swift Sample App.debug.xcconfig"; sourceTree = "<group>"; };
 		0838F6B21F93533100B39E1D /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		0838F6B31F93533100B39E1D /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		0838F6B41F9354BE00B39E1D /* Neura Swift Sample App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Neura Swift Sample App-Bridging-Header.h"; sourceTree = "<group>"; };
 		0877CEB31F39FF250020B59E /* PushNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
+		08DD60661F936145007932AD /* Notifications.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Notifications.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		08DD60681F936145007932AD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		08DD606A1F936145007932AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		698E00058F4480B85D40194C /* Pods_Neura_Swift_Sample_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Neura_Swift_Sample_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		766AEE5FFE920C3AAB641E00 /* Pods-Neura Swift Sample App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neura Swift Sample App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Neura Swift Sample App/Pods-Neura Swift Sample App.release.xcconfig"; sourceTree = "<group>"; };
 		E125F7F81D328BF00078E7B4 /* Neura Swift Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neura Swift Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +87,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		08DD60631F936145007932AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E125F7F51D328BF00078E7B4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,6 +125,15 @@
 			path = "Neura Swift Sample App/PushNotifications";
 			sourceTree = SOURCE_ROOT;
 		};
+		08DD60671F936145007932AD /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				08DD60681F936145007932AD /* NotificationService.swift */,
+				08DD606A1F936145007932AD /* Info.plist */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		6D7E1E65B57B1772D9762509 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				E125F7FA1D328BF00078E7B4 /* Neura Swift Sample App */,
+				08DD60671F936145007932AD /* Notifications */,
 				E125F7F91D328BF00078E7B4 /* Products */,
 				A52DE80C1119B1476B2BC04F /* Pods */,
 				6D7E1E65B57B1772D9762509 /* Frameworks */,
@@ -120,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				E125F7F81D328BF00078E7B4 /* Neura Swift Sample App.app */,
+				08DD60661F936145007932AD /* Notifications.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,8 +188,7 @@
 				E152814E1DC0E16E001B7563 /* LaunchScreen.storyboard */,
 				E19DB1DE1DC0E0440045AA6E /* Info.plist */,
 			);
-			name = "Neura Swift Sample App";
-			path = "Push Notifications Test";
+			path = "Neura Swift Sample App";
 			sourceTree = "<group>";
 		};
 		E173C8FD1DAB81FB002D46F7 /* PermissionsListViewController */ = {
@@ -195,6 +241,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		08DD60651F936145007932AD /* Notifications */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08DD606E1F936145007932AD /* Build configuration list for PBXNativeTarget "Notifications" */;
+			buildPhases = (
+				08DD60621F936145007932AD /* Sources */,
+				08DD60631F936145007932AD /* Frameworks */,
+				08DD60641F936145007932AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Notifications;
+			productName = Notifications;
+			productReference = 08DD60661F936145007932AD /* Notifications.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		E125F7F71D328BF00078E7B4 /* Neura Swift Sample App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E125F80A1D328BF00078E7B4 /* Build configuration list for PBXNativeTarget "Neura Swift Sample App" */;
@@ -205,10 +268,12 @@
 				E125F7F61D328BF00078E7B4 /* Resources */,
 				88667603DC253953BF2F374D /* [CP] Embed Pods Frameworks */,
 				AE386BB6C8B20C5BCB572487 /* [CP] Copy Pods Resources */,
+				08DD60711F936145007932AD /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				08DD606C1F936145007932AD /* PBXTargetDependency */,
 			);
 			name = "Neura Swift Sample App";
 			productName = "Push Notifications Test";
@@ -221,10 +286,15 @@
 		E125F7F01D328BF00078E7B4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = beauNeura;
 				TargetAttributes = {
+					08DD60651F936145007932AD = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = UF894MT86P;
+						ProvisioningStyle = Automatic;
+					};
 					E125F7F71D328BF00078E7B4 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = UF894MT86P;
@@ -256,11 +326,19 @@
 			projectRoot = "";
 			targets = (
 				E125F7F71D328BF00078E7B4 /* Neura Swift Sample App */,
+				08DD60651F936145007932AD /* Notifications */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		08DD60641F936145007932AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E125F7F61D328BF00078E7B4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,6 +406,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		08DD60621F936145007932AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08DD60691F936145007932AD /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E125F7F41D328BF00078E7B4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -352,6 +438,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		08DD606C1F936145007932AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 08DD60651F936145007932AD /* Notifications */;
+			targetProxy = 08DD606B1F936145007932AD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		E152814E1DC0E16E001B7563 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -364,6 +458,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		08DD606F1F936145007932AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UF894MT86P;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Notifications/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.neura.sdk.sampleApp.Notifications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		08DD60701F936145007932AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UF894MT86P;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Notifications/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.neura.sdk.sampleApp.Notifications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E125F8081D328BF00078E7B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -467,10 +607,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 052C7FC66BC1022B74AE05C8 /* Pods-Neura Swift Sample App.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_ENTITLEMENTS = "Neura Swift Sample App/Neura Swift Sample App.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
@@ -501,10 +643,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 766AEE5FFE920C3AAB641E00 /* Pods-Neura Swift Sample App.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_ENTITLEMENTS = "Neura Swift Sample App/Neura Swift Sample App.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
@@ -534,6 +678,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		08DD606E1F936145007932AD /* Build configuration list for PBXNativeTarget "Notifications" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08DD606F1F936145007932AD /* Debug */,
+				08DD60701F936145007932AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E125F7F31D328BF00078E7B4 /* Build configuration list for PBXProject "Neura Swift Sample App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

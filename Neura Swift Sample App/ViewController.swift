@@ -36,6 +36,15 @@ class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
         NeuraSDK.shared.authenticationStateDelegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.updateSymbolState()
+        self.updateButtonsState()
+        self.updateAuthenticationLabelState()
+        self.updateAuthenticationButtonState()
+    }
+    
     // MARK: - UI Updated based on authentication state
     func updateSymbolState() {
         let isConnected = NeuraSDK.shared.isAuthenticated()
@@ -47,7 +56,7 @@ class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
         let authState = NeuraSDK.shared.authenticationState()
         var title = ""
         switch authState {
-        case .authenticatedAnonymously:
+        case .authenticatedAnonymously, .authenticated:
             title = "Disconnect"
             
         case .accessTokenRequested:
@@ -90,8 +99,7 @@ class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
     func loginToNeura() {
         self.showBlockingProgress()
         
-//        let request = NeuraAnonymousAuthenticationRequest(deviceToken: deviceToken)
-        let request = NeuraAuthenticationRequest(controller: self)
+        let request = NeuraAnonymousAuthenticationRequest()
         NeuraSDK.shared.authenticate(with: request) { result in
             if let error = result.error {
                 // Handle authentication errors if required

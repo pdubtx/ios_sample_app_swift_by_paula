@@ -113,7 +113,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
                 subscribeToEvent(eventName)
             }
         } else {
-            removeSubscriptionWithIdentifier(eventName)
+            removeSubscriptionWithEventName(eventName)
         }
     }
 
@@ -128,8 +128,8 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     }
 
     func subscribeToEvent(_ eventName: String) {
-        let webHookId = "myWebHookId" // <== You will need to change this id to the one you defined on the dev site.
-        let nSubscription = NSubscription(eventName: eventName, webhookId: webHookId)
+        let identifier = "\(NeuraSDK.shared.neuraUserId()!)_\(eventName)"
+        let nSubscription = NSubscription(evenName: eventName, forPushWithIdentifier: identifier)
         neuraSDK.add(nSubscription)  { result in
             if result.error != nil {
                 let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
@@ -141,17 +141,18 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
         }
     }
 
-    func removeSubscriptionWithIdentifier(_ identifier: String){
-//        let nSubscription = NSubscription.init(eventName: identifier, identifier: "_\(identifier)")
-//        neuraSDK.remove(nSubscription) { result in
-//            if result.error != nil {
-//                let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
-//                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                alertController.addAction(okAction)
-//                self.present(alertController, animated: true, completion: nil)
-//            }
-//            self.reloadAllData()
-//        }
+    func removeSubscriptionWithEventName(_ eventName: String){
+        let identifier = "\(NeuraSDK.shared.neuraUserId()!)_\(eventName)"
+        let nSubscription = NSubscription.init(evenName: eventName, forPushWithIdentifier: identifier)
+        neuraSDK.remove(nSubscription) { result in
+            if result.error != nil {
+                let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+            self.reloadAllData()
+        }
     }
     
     //MARK: IBActions

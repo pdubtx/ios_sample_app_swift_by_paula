@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool{
         // Change these values to the ones related to your app (https://dev.theneura.com/console/apps)
-        NeuraSDK.shared.appUID = "ee01346c01f64c5345f21830d9ca91dde0046db1442c6b8932e60a77f32d8d17"
-        NeuraSDK.shared.appSecret = "4a56d9a3c4b8dad1ebd4dd4978dc8a0bac4d6eaabab35f7bee7bfea2ae3722c3"
+        NeuraSDK.shared.appUID = "d17aa5f39d052a42d7e8fce29fd5a7b1f47526339f3f86d08ae66979ad1a4f99"
+        NeuraSDK.shared.appSecret = "cc5fe631ff8de1f5359468eb5086c608b7dd97538a8ac70002627b54b753d3e0"
         PushNotifications.requestPermissionForPushNotifications()
         return true
     }

@@ -69,3 +69,4 @@ NeuraSDK.framework
 
 #DS_Store
 .DS_Store
+Podfile.lock

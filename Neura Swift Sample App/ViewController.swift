@@ -9,7 +9,7 @@
 import UIKit
 import NeuraSDK
 
-class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
+class ViewController: UIViewController {
     //MARK: Properties
     let neuraSDK = NeuraSDK.shared
     
@@ -30,10 +30,7 @@ class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
-        
-        // (optional) Set an authentication state delegate to get updates
-        // when the Neura authentication state changes.
-        NeuraSDK.shared.authenticationStateDelegate = self
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,6 +110,7 @@ class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
             if result.success {
                 // Successful authentication
                 // (access token will be received by push)
+                self.neuraAuthStateUpdated()
             } else {
                 // Handle failed login.
                 self.showAlert(title: "Login failed", message: nil)
@@ -127,13 +125,15 @@ class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
         NeuraSDK.shared.logout { result in
             // Handle errors if required
             self.hideBlockingProgress()
+            self.neuraAuthStateUpdated()
         }
     }
     
     //
     // MARK: - NeuraAuthenticationStateDelegate
     //
-    func neuraAuthStateUpdated(_ state: NeuraAuthState) {
+    
+    func neuraAuthStateUpdated() {
         self.updateAuthenticationLabelState()
         self.updateSymbolState()
         self.updateAuthenticationButtonState()
@@ -179,10 +179,7 @@ class ViewController: UIViewController, NeuraAuthenticationStateDelegate {
         self.appVersionLabel.text = appVersion
         
         // Auth State
-        self.updateSymbolState()
-        self.updateButtonsState()
-        self.updateAuthenticationLabelState()
-        self.updateAuthenticationButtonState()
+        self.neuraAuthStateUpdated()
     }
     
     //

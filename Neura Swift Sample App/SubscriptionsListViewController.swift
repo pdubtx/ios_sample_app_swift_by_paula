@@ -103,7 +103,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
             //this function checks whether an event subscription is missing data in order to successfully subscribe
             if neuraSDK.isMissingData(forEvent: eventName) == true {
                 let alertController = UIAlertController(title: "A related place node should be added, before you can subscribe to this event. Would you like to subscribe anyway?", message: nil, preferredStyle: .alert)
-                let noAction = UIAlertAction(title: "I will wait", style: .default, handler: nil)
+                let noAction = UIAlertAction(title: "I will wait", style: .default, handler: { _ in subscribeSwitch.setOn(false, animated: true)})
                 alertController.addAction(noAction)
                 let okAction = UIAlertAction(title: "Yes", style: .default, handler: {_ in self.subscribeToEvent(eventName)})
                 alertController.addAction(okAction)
@@ -135,10 +135,10 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
 
     func removeSubscriptionWithEventName(_ eventName: String){
         let identifier = "\(NeuraSDK.shared.neuraUserId()!)_\(eventName)"
-        let nSubscription = NSubscription.init(eventName: eventName, webhookId: identifier)
+        let nSubscription = NSubscription(evenName: eventName, forPushWithIdentifier: identifier)
         neuraSDK.remove(nSubscription) { result in
             if result.error != nil {
-                let alertController = UIAlertController(title: "Error", message: nil, preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Error", message: result.errorString, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okAction)
                 self.present(alertController, animated: true, completion: nil)

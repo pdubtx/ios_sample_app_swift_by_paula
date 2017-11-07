@@ -470,7 +470,7 @@
 				DEVELOPMENT_TEAM = UF894MT86P;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Notifications/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neura.sdk.sampleApp.Notifications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -493,7 +493,7 @@
 				DEVELOPMENT_TEAM = UF894MT86P;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Notifications/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neura.sdk.sampleApp.Notifications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -624,7 +624,7 @@
 					"$(PROJECT_DIR)/Neura\\ Swift\\ Sample\\ App",
 				);
 				INFOPLIST_FILE = "Neura Swift Sample App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "-iquote";
 				OTHER_LDFLAGS = "";
@@ -660,7 +660,7 @@
 					"$(PROJECT_DIR)/Neura\\ Swift\\ Sample\\ App",
 				);
 				INFOPLIST_FILE = "Neura Swift Sample App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "-iquote";
 				OTHER_LDFLAGS = "";

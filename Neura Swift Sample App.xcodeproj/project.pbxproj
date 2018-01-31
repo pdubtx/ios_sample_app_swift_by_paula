@@ -11,6 +11,8 @@
 		0877CEB41F39FF250020B59E /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0877CEB31F39FF250020B59E /* PushNotifications.swift */; };
 		08DD60691F936145007932AD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DD60681F936145007932AD /* NotificationService.swift */; };
 		08DD606D1F936145007932AD /* Notifications.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 08DD60661F936145007932AD /* Notifications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		554774B42021EA4E001290AE /* SendEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554774B32021EA4E001290AE /* SendEventViewController.swift */; };
+		554774B62021EE80001290AE /* SimulateEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554774B52021EE80001290AE /* SimulateEventTableViewCell.swift */; };
 		9757AA5BA993452C4286B2B7 /* Pods_Neura_Swift_Sample_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698E00058F4480B85D40194C /* Pods_Neura_Swift_Sample_App.framework */; };
 		E15281491DC0E11F001B7563 /* DataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15281481DC0E11F001B7563 /* DataSourceProtocol.swift */; };
 		E152814C1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152814A1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift */; };
@@ -63,6 +65,8 @@
 		08DD60661F936145007932AD /* Notifications.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Notifications.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		08DD60681F936145007932AD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		08DD606A1F936145007932AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		554774B32021EA4E001290AE /* SendEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEventViewController.swift; sourceTree = "<group>"; };
+		554774B52021EE80001290AE /* SimulateEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateEventTableViewCell.swift; sourceTree = "<group>"; };
 		698E00058F4480B85D40194C /* Pods_Neura_Swift_Sample_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Neura_Swift_Sample_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		766AEE5FFE920C3AAB641E00 /* Pods-Neura Swift Sample App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neura Swift Sample App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Neura Swift Sample App/Pods-Neura Swift Sample App.release.xcconfig"; sourceTree = "<group>"; };
 		E125F7F81D328BF00078E7B4 /* Neura Swift Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neura Swift Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +138,15 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		554774B22021EA1B001290AE /* SendEventViewController */ = {
+			isa = PBXGroup;
+			children = (
+				554774B32021EA4E001290AE /* SendEventViewController.swift */,
+				554774B52021EE80001290AE /* SimulateEventTableViewCell.swift */,
+			);
+			path = SendEventViewController;
+			sourceTree = "<group>";
+		};
 		6D7E1E65B57B1772D9762509 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +167,7 @@
 		E125F7EF1D328BF00078E7B4 = {
 			isa = PBXGroup;
 			children = (
+				554774B22021EA1B001290AE /* SendEventViewController */,
 				E125F7FA1D328BF00078E7B4 /* Neura Swift Sample App */,
 				08DD60671F936145007932AD /* Notifications */,
 				E125F7F91D328BF00078E7B4 /* Products */,
@@ -421,6 +435,8 @@
 				0877CEB41F39FF250020B59E /* PushNotifications.swift in Sources */,
 				E15281491DC0E11F001B7563 /* DataSourceProtocol.swift in Sources */,
 				E19DB1E01DC0E0960045AA6E /* AppDelegate.swift in Sources */,
+				554774B42021EA4E001290AE /* SendEventViewController.swift in Sources */,
+				554774B62021EE80001290AE /* SimulateEventTableViewCell.swift in Sources */,
 				E19DB1E11DC0E0960045AA6E /* ViewController.swift in Sources */,
 				E152814C1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift in Sources */,
 				E19DB1E21DC0E0960045AA6E /* SubscriptionsListViewController.swift in Sources */,

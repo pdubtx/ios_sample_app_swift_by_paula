@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var approvedPermissionsListButton: RoundedButton!
     @IBOutlet weak var permissionsListButton: RoundedButton!
     @IBOutlet weak var devicesButton: RoundedButton!
+    @IBOutlet weak var simulateEvent: RoundedButton!
     
     @IBOutlet weak var sdkVersionLabel: UILabel!
     @IBOutlet weak var neuraStatusLabel: UILabel!
@@ -224,6 +225,10 @@ class ViewController: UIViewController {
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    @IBAction func simulateEventPressed(_ sender: RoundedButton) {
+                self.performSegue(withIdentifier: "simulateEventSegue", sender: self)
     }
     
     @IBAction func sendLogPressed(_ sender: AnyObject) {

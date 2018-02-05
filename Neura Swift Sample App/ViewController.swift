@@ -31,6 +31,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
+        self.simulateEvent.isHidden = true
+        self.permissionsListButton.isHidden = true
        
     }
     

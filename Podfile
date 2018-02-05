@@ -2,7 +2,7 @@ use_frameworks!
 platform :ios, '9.0'
 
 def basic_app_pods
-    pod 'NeuraSDKFramework', '~> 4.1'
+    pod 'NeuraSDKFramework'
 end
 
 target 'Neura Swift Sample App' do

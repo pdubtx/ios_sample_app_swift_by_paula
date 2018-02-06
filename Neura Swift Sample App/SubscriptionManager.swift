@@ -11,18 +11,19 @@ import NeuraSDK
 
 
 class SubscriptionsManager {
+    
     let requiredSubscriptions: Set<String> = [
         EventName.eventArrivedHome.rawValue,
-        EventName.eventLeftHome.rawValue,
+//        EventName.eventLeftHome.rawValue,
         EventName.eventArrivedToWork.rawValue,
-        EventName.eventLeftWork.rawValue,
-        EventName.eventStartedDriving.rawValue,
-        EventName.eventFinishedDriving.rawValue,
-        EventName.eventStartedSleeping.rawValue,
-        EventName.eventGotUp.rawValue,
-        EventName.eventStartedWalking.rawValue,
-        EventName.eventWokeUp.rawValue,
-        EventName.eventFinishedWalking.rawValue
+//        EventName.eventLeftWork.rawValue,
+//        EventName.eventStartedDriving.rawValue,
+//        EventName.eventFinishedDriving.rawValue,
+//        EventName.eventStartedSleeping.rawValue,
+//        EventName.eventGotUp.rawValue,
+//        EventName.eventStartedWalking.rawValue,
+//        EventName.eventWokeUp.rawValue,
+//        EventName.eventFinishedWalking.rawValue
     ]
     
     var missingSubscriptions: Set<String> = []
@@ -99,4 +100,29 @@ class SubscriptionsManager {
         self.currentlyWorking = false
         self.checkAgainLater = false
     }
+}
+
+
+enum EventName : String {
+    
+    case eventArrivedHome       = "userArrivedHome"
+    case eventLeftHome          = "userLeftHome"
+    
+    case eventArrivedToWork     = "userArrivedToWork"
+    case eventLeftWork          = "userLeftWork"
+    
+    case eventStartedDriving    = "userStartedDriving"
+    case eventFinishedDriving   = "userFinishedDriving"
+    
+    case eventStartedRunning    = "userStartedRunning"
+    case eventFinishedRunning   = "userFinishedRunning"
+    
+    case eventStartedWalking    = "userStartedWalking"
+    case eventFinishedWalking   = "userFinishedWalking"
+    
+    case eventStartedSleeping   = "userStartedSleeping"
+    case eventWokeUp            = "userWokeUp" // Currently not reported on iOS
+    case eventGotUp             = "userGotUp"
+    case eventArrivedPlace      = "userArrivedPlace"
+    case eventLeftPlace         = "userLeftPlace"
 }

@@ -11,8 +11,10 @@
 		0877CEB41F39FF250020B59E /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0877CEB31F39FF250020B59E /* PushNotifications.swift */; };
 		08DD60691F936145007932AD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DD60681F936145007932AD /* NotificationService.swift */; };
 		08DD606D1F936145007932AD /* Notifications.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 08DD60661F936145007932AD /* Notifications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		554774B42021EA4E001290AE /* SendEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554774B32021EA4E001290AE /* SendEventViewController.swift */; };
-		554774B62021EE80001290AE /* SimulateEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554774B52021EE80001290AE /* SimulateEventTableViewCell.swift */; };
+		55F5FBF1202896620027FDE2 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F5FBF0202896620027FDE2 /* SubscriptionManager.swift */; };
+		55F5FBF82029A2B30027FDE2 /* EventName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F5FBF42029A2B20027FDE2 /* EventName.swift */; };
+		55F5FBF92029A2B30027FDE2 /* SendEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F5FBF62029A2B20027FDE2 /* SendEventViewController.swift */; };
+		55F5FBFA2029A2B30027FDE2 /* SimulateEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F5FBF72029A2B20027FDE2 /* SimulateEventTableViewCell.swift */; };
 		9757AA5BA993452C4286B2B7 /* Pods_Neura_Swift_Sample_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 698E00058F4480B85D40194C /* Pods_Neura_Swift_Sample_App.framework */; };
 		E15281491DC0E11F001B7563 /* DataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15281481DC0E11F001B7563 /* DataSourceProtocol.swift */; };
 		E152814C1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E152814A1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift */; };
@@ -65,8 +67,10 @@
 		08DD60661F936145007932AD /* Notifications.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Notifications.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		08DD60681F936145007932AD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		08DD606A1F936145007932AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		554774B32021EA4E001290AE /* SendEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEventViewController.swift; sourceTree = "<group>"; };
-		554774B52021EE80001290AE /* SimulateEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateEventTableViewCell.swift; sourceTree = "<group>"; };
+		55F5FBF0202896620027FDE2 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		55F5FBF42029A2B20027FDE2 /* EventName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventName.swift; sourceTree = "<group>"; };
+		55F5FBF62029A2B20027FDE2 /* SendEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendEventViewController.swift; sourceTree = "<group>"; };
+		55F5FBF72029A2B20027FDE2 /* SimulateEventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulateEventTableViewCell.swift; sourceTree = "<group>"; };
 		698E00058F4480B85D40194C /* Pods_Neura_Swift_Sample_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Neura_Swift_Sample_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		766AEE5FFE920C3AAB641E00 /* Pods-Neura Swift Sample App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neura Swift Sample App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Neura Swift Sample App/Pods-Neura Swift Sample App.release.xcconfig"; sourceTree = "<group>"; };
 		E125F7F81D328BF00078E7B4 /* Neura Swift Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Neura Swift Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,11 +142,11 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
-		554774B22021EA1B001290AE /* SendEventViewController */ = {
+		55F5FBF52029A2B20027FDE2 /* SendEventViewController */ = {
 			isa = PBXGroup;
 			children = (
-				554774B32021EA4E001290AE /* SendEventViewController.swift */,
-				554774B52021EE80001290AE /* SimulateEventTableViewCell.swift */,
+				55F5FBF62029A2B20027FDE2 /* SendEventViewController.swift */,
+				55F5FBF72029A2B20027FDE2 /* SimulateEventTableViewCell.swift */,
 			);
 			path = SendEventViewController;
 			sourceTree = "<group>";
@@ -167,7 +171,6 @@
 		E125F7EF1D328BF00078E7B4 = {
 			isa = PBXGroup;
 			children = (
-				554774B22021EA1B001290AE /* SendEventViewController */,
 				E125F7FA1D328BF00078E7B4 /* Neura Swift Sample App */,
 				08DD60671F936145007932AD /* Notifications */,
 				E125F7F91D328BF00078E7B4 /* Products */,
@@ -188,6 +191,8 @@
 		E125F7FA1D328BF00078E7B4 /* Neura Swift Sample App */ = {
 			isa = PBXGroup;
 			children = (
+				55F5FBF42029A2B20027FDE2 /* EventName.swift */,
+				55F5FBF52029A2B20027FDE2 /* SendEventViewController */,
 				E1EDE09C1DBFACE6001B6329 /* Neura Swift Sample App.entitlements */,
 				E19DB1C41DC0DFAF0045AA6E /* AppDelegate.swift */,
 				E19DB1C61DC0DFB50045AA6E /* Main.storyboard */,
@@ -201,6 +206,7 @@
 				E19DB1DC1DC0E03C0045AA6E /* Assets.xcassets */,
 				E152814E1DC0E16E001B7563 /* LaunchScreen.storyboard */,
 				E19DB1DE1DC0E0440045AA6E /* Info.plist */,
+				55F5FBF0202896620027FDE2 /* SubscriptionManager.swift */,
 			);
 			path = "Neura Swift Sample App";
 			sourceTree = "<group>";
@@ -435,17 +441,19 @@
 				0877CEB41F39FF250020B59E /* PushNotifications.swift in Sources */,
 				E15281491DC0E11F001B7563 /* DataSourceProtocol.swift in Sources */,
 				E19DB1E01DC0E0960045AA6E /* AppDelegate.swift in Sources */,
-				554774B42021EA4E001290AE /* SendEventViewController.swift in Sources */,
-				554774B62021EE80001290AE /* SimulateEventTableViewCell.swift in Sources */,
 				E19DB1E11DC0E0960045AA6E /* ViewController.swift in Sources */,
 				E152814C1DC0E132001B7563 /* SupportedCapabilitiesDataSource.swift in Sources */,
+				55F5FBF82029A2B30027FDE2 /* EventName.swift in Sources */,
 				E19DB1E21DC0E0960045AA6E /* SubscriptionsListViewController.swift in Sources */,
+				55F5FBF92029A2B30027FDE2 /* SendEventViewController.swift in Sources */,
 				E19DB1E31DC0E0960045AA6E /* SubscriptionsTableViewCell.swift in Sources */,
 				0838F6B81F93551200B39E1D /* MBProgressHUD.m in Sources */,
 				E19DB1E41DC0E0960045AA6E /* PickerViewController.swift in Sources */,
 				E152814D1DC0E132001B7563 /* SupportedDevicesDataSource.swift in Sources */,
 				E19DB1E51DC0E0960045AA6E /* DeviceOperationsTableViewCell.swift in Sources */,
 				E19DB1E61DC0E0960045AA6E /* DeviceOperationsViewController.swift in Sources */,
+				55F5FBF1202896620027FDE2 /* SubscriptionManager.swift in Sources */,
+				55F5FBFA2029A2B30027FDE2 /* SimulateEventTableViewCell.swift in Sources */,
 				E19DB1E71DC0E0960045AA6E /* DeviceOperationsListViewController.swift in Sources */,
 				E19DB1E81DC0E0960045AA6E /* PermissionsListViewController.swift in Sources */,
 				E19DB1E91DC0E0960045AA6E /* RoundedButton.swift in Sources */,

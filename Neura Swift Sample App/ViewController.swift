@@ -12,19 +12,21 @@ import NeuraSDK
 class ViewController: UIViewController {
     //MARK: Properties
     let neuraSDK = NeuraSDK.shared
+    let subManager = SubscriptionsManager()
     
     //MARK: IBOutlets
-    @IBOutlet weak var loginButton: RoundedButton!
+    
     @IBOutlet weak var approvedPermissionsListButton: RoundedButton!
     @IBOutlet weak var permissionsListButton: RoundedButton!
     @IBOutlet weak var devicesButton: RoundedButton!
     @IBOutlet weak var simulateEvent: RoundedButton!
+    @IBOutlet weak var loginButton: RoundedButton!
     
-    @IBOutlet weak var sdkVersionLabel: UILabel!
     @IBOutlet weak var neuraStatusLabel: UILabel!
-    @IBOutlet weak var appVersionLabel: UILabel!
+    @IBOutlet weak var sdkVersionLabel:  UILabel!
+    @IBOutlet weak var appVersionLabel:  UILabel!
     
-    @IBOutlet weak var neuraSymbolTop: UIImageView!
+    @IBOutlet weak var neuraSymbolTop:    UIImageView!
     @IBOutlet weak var neuraSymbolBottom: UIImageView!
     
     // MARK: - VC Lifecycle
@@ -33,7 +35,7 @@ class ViewController: UIViewController {
         self.setupUI()
         self.simulateEvent.isHidden = true
         self.permissionsListButton.isHidden = true
-       
+        subManager.checkSubscriptions()
     }
     
     override func viewDidAppear(_ animated: Bool) {

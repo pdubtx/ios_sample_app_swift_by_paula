@@ -134,7 +134,7 @@ class SubscriptionsListViewController: UIViewController, UITableViewDelegate, UI
     }
 
     func removeSubscriptionWithEventName(_ eventName: String){
-        let identifier = "\(NeuraSDK.shared.neuraUserId()!)_\(eventName)"
+        let identifier = (eventName) + "_" + (NeuraSDK.shared.neuraUserId()!)
         let nSubscription = NSubscription(evenName: eventName, forPushWithIdentifier: identifier)
         neuraSDK.remove(nSubscription) { result in
             if result.error != nil {

@@ -85,7 +85,12 @@ class ViewController: UIViewController {
             text = "Requested tokens..."
         case .authenticated, .authenticatedAnonymously:
             color = UIColor(red: 0, green: 0.4, blue: 0, alpha: 1.0)
-            text = "Connected"
+            if let neuraUserId = NeuraSDK.shared.neuraUserId() {
+                text = "Connected (\(neuraUserId))"                
+            } else {
+                text = "Connected"
+            }
+            
         case .failedReceivingAccessToken:
             color = .red
             text = "Failed receiving tokens"
